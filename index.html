@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+ 
 <!-- SEO -->
 <meta name="description" content="EVTcalc checks a stroke patient's mechanical thrombectomy (EVT) eligibility against the landmark anterior- and posterior-circulation trials — DAWN, DEFUSE-3, SELECT2, ANGEL-ASPECT, ATTENTION, BAOCHE and more — with full criterion-level transparency.">
 <meta name="keywords" content="thrombectomy, EVT, endovascular therapy, acute ischemic stroke, LVO, eligibility, DAWN, DEFUSE-3, SELECT2, ANGEL-ASPECT, ATTENTION, BAOCHE, ASPECTS, NIHSS">
@@ -64,7 +64,7 @@
   header .tag { color: var(--ink-soft); font-size: 0.85rem; }
   .wrap { display: grid; grid-template-columns: 340px 1fr; gap: 20px; padding: 20px 22px; max-width: 1500px; margin: 0 auto; }
   @media (max-width: 950px) { .wrap { grid-template-columns: 1fr; } .form-col { position: static !important; max-height: none; overflow: visible; } }
-
+ 
   /* ---------- form ---------- */
   .form-col { position: sticky; top: 14px; align-self: start; max-height: calc(100vh - 28px); overflow-y: auto; }
   .panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 14px; }
@@ -94,7 +94,7 @@
     cursor: pointer; font-size: 0.88rem; color: var(--ink-soft);
   }
   .btn-reset:hover { background: var(--miss-bg); }
-
+ 
   /* ---------- results ---------- */
   .summary-strip {
     background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
@@ -151,7 +151,7 @@
   .resultnote { padding: 8px 14px; font-size: 0.78rem; line-height: 1.4; }
   .resultnote.pos { color: var(--go); background: var(--go-bg); }
   .resultnote.neg { color: var(--nogo); background: var(--nogo-bg); }
-
+ 
   /* ---- decluttered results ---- */
   .results-empty { text-align: center; color: var(--ink-soft); font-size: 0.95rem; padding: 52px 24px;
     background: var(--card); border: 1px dashed var(--line); border-radius: var(--radius); }
@@ -165,7 +165,7 @@
   .others[open] > summary .chev { transform: rotate(90deg); }
   .others[open] > summary { margin-bottom: 13px; }
   .trial-note { padding: 8px 14px 12px; font-size: 0.76rem; color: var(--ink-soft); border-top: 1px dashed var(--line); }
-
+ 
   /* ---- visual polish ---- */
   .panel, .card, .consent-panel, .about-panel details, .contact-card { box-shadow: 0 1px 2px rgba(16,35,63,0.035); }
   .trial { box-shadow: 0 1px 2px rgba(16,35,63,0.04); transition: box-shadow .15s ease, border-color .15s ease; }
@@ -201,7 +201,7 @@
   .about-panel p { font-size: 0.86rem; color: var(--ink-soft); margin-bottom: 9px; }
   .about-panel .vk { display: inline-block; font-weight: 700; }
   .about-panel .vk.go { color: var(--go); } .about-panel .vk.unk { color: var(--unk); } .about-panel .vk.nogo { color: var(--nogo); }
-
+ 
   /* ---------- contact ---------- */
   .contact-section { max-width: 720px; margin: 8px auto 0; padding: 0 22px; }
   .contact-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 15px 22px; }
@@ -233,13 +233,13 @@
   .contact-status.err { display: block; background: var(--nogo-bg); color: var(--nogo); }
   .contact-note { grid-column: 1 / -1; font-size: 0.76rem; color: var(--ink-soft); }
   @media (max-width: 560px) { .contact-form { grid-template-columns: 1fr; } }
-
+ 
   /* ---------- input validation ---------- */
   .field input.invalid { border-color: var(--nogo); background: var(--nogo-bg); }
   .field .rangewarn { display: none; font-size: 0.72rem; color: var(--nogo); margin-top: 3px; }
   .field input.invalid ~ .rangewarn { display: block; }
   .summary-warn { color: var(--nogo); font-size: 0.85rem; }
-
+ 
   /* ---------- built-in calculators + share ---------- */
   .mini-calc { margin-left: 8px; font-size: 0.72rem; font-weight: 600; color: var(--link); background: none;
     border: none; cursor: pointer; padding: 0; text-decoration: underline; font-family: inherit; }
@@ -268,7 +268,7 @@
   .btn-share { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid var(--accent); background: var(--accent-soft); color: var(--accent-ink); border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 600; font-family: inherit; }
   .btn-share:hover { background: #d6e8f8; }
   .share-note { font-size: 0.72rem; color: var(--ink-soft); margin-top: 6px; text-align: center; }
-
+ 
   /* ---------- mobile / touch ---------- */
   @media (max-width: 640px) {
     header { padding: 11px 15px; gap: 5px; }
@@ -306,7 +306,7 @@
   <h1>EVTcalc</h1>
   <span class="tag">Mechanical thrombectomy candidacy across the landmark trials — anterior &amp; posterior circulation LVO</span>
 </header>
-
+ 
 <div class="wrap">
   <!-- ============ INPUT FORM ============ -->
   <div class="form-col">
@@ -336,7 +336,7 @@
           <div class="subtle-note">SWIFT PRIME &amp; EXTEND-IA enrolled only tPA-treated patients.</div></div>
       </div>
     </div>
-
+ 
     <div class="panel">
       <h2>Non-contrast CT</h2>
       <div class="fields">
@@ -348,11 +348,13 @@
         <div class="field" id="pcAspectsField" style="display:none;"><label>pc-ASPECTS <span class="hint">(posterior)</span> <button type="button" class="mini-calc" data-calc="pcaspects">calculator ▾</button></label>
           <input type="number" id="pcaspects" min="0" max="10" placeholder="0–10">
           <div class="calc-panel" id="pcaspectsCalc" style="display:none;"></div></div>
+        <div class="field" id="pmiField" style="display:none;"><label>Pons–midbrain index <span class="hint">(BAOCHE; ≤2 eligible)</span></label>
+          <input type="number" id="pmi" min="0" max="6" placeholder="0–6"></div>
         <div class="field"><label>Midline shift / mass effect / herniation</label>
           <div class="seg" id="massEffect" data-opts="no:No,yes:Yes,unk:Unknown"></div></div>
       </div>
     </div>
-
+ 
     <div class="panel">
       <h2>CTA</h2>
       <div class="fields">
@@ -376,9 +378,11 @@
           </select></div>
         <div class="field"><label>Bilateral strokes / multi-territory occlusions</label>
           <div class="seg" id="multiOcc" data-opts="no:No,yes:Yes,unk:Unknown"></div></div>
+        <div class="field" id="m2equivField" style="display:none;"><label>≥2 M2 branches occluded <span class="hint">(M1-equivalent; ESCAPE)</span></label>
+          <div class="seg" id="m2equiv" data-opts="no:No,yes:Yes,unk:Unknown"></div></div>
       </div>
     </div>
-
+ 
     <div class="panel">
       <h2>CT Perfusion (RAPID) <span style="text-transform:none;letter-spacing:0;">(optional)</span></h2>
       <div class="fields">
@@ -392,17 +396,17 @@
         </div>
       </div>
     </div>
-
+ 
     <button class="btn-reset" id="resetBtn">Reset all fields</button>
     <button class="btn-share" id="shareBtn">🔗 Copy shareable case link</button>
     <div class="share-note" id="shareNote">Encodes the clinical values only — no name, MRN, or identifiers.</div>
   </div>
-
+ 
   <!-- ============ RESULTS ============ -->
   <div class="results-col">
     <div class="summary-strip" id="summary"></div>
     <div id="results"></div>
-
+ 
     <details class="consent-panel">
       <summary>Large-core informed consent — what family needs to know</summary>
       <ul>
@@ -413,7 +417,7 @@
     </details>
   </div>
 </div>
-
+ 
 <section class="contact-section" id="contact">
   <details class="contact-card">
     <summary>Contact &amp; feedback</summary>
@@ -425,7 +429,7 @@
       <input type="hidden" name="from_name" value="EVTcalc contact form">
       <!-- honeypot -->
       <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
-
+ 
       <div>
         <label for="cName">Name</label>
         <input type="text" id="cName" name="name" required placeholder="Your name">
@@ -463,7 +467,7 @@
     </form>
   </details>
 </section>
-
+ 
 <div class="about-panel">
   <details>
     <summary>About &amp; methodology</summary>
@@ -473,28 +477,28 @@
     <p><strong>EVTcalc is an independent educational tool and is not affiliated with, endorsed by, or connected to MDCalc.</strong></p>
   </details>
 </div>
-
+ 
 <footer>
   <div class="disclaimer"><strong>Disclaimer:</strong> EVTcalc is an educational decision-support reference for qualified physicians. It reproduces published trial inclusion/exclusion criteria and does not replace clinical judgment, institutional protocols, or current AHA/ASA guidelines. Trial criteria are simplified where noted; always verify against the primary publication.</div>
   <div class="refs" id="refs"></div>
 </footer>
-
+ 
 <script>
 /* ================= LOGIC-START ================= */
-
+ 
 // ---- criterion helpers -------------------------------------------------
 // A criterion fn returns {s: 'pass'|'fail'|'missing'}
 function need(v) { return v === null || v === undefined || v === '' || v === 'unk'; }
 function num(v) { return (v === null || v === undefined || v === '') ? null : Number(v); }
 function chk(missing, cond) { return missing ? { s: 'missing' } : { s: cond ? 'pass' : 'fail' }; }
-
+ 
 // State shape:
-// age, nihss, lkw, aspects, pcaspects, coreVol, mmRatio  -> numbers or null
+// age, nihss, lkw, aspects, pcaspects, coreVol, mmRatio, pmi  -> numbers or null
 // mrs -> number or null
-// tpa, hemorrhage, massEffect, multiOcc -> 'yes'|'no'|'unk'|null
+// tpa, hemorrhage, massEffect, multiOcc, m2equiv -> 'yes'|'no'|'unk'|null
 // occlusion -> 'ica'|'m1'|'m2'|'basilar'|'other'|'none'|null
 // perfDone -> 'yes'|'no'|null
-
+ 
 const REFS = {
   mrclean:  { label: "Berkhemer et al., NEJM 2015 (MR CLEAN)", url: "https://www.nejm.org/doi/full/10.1056/NEJMoa1411587" },
   escape:   { label: "Goyal et al., NEJM 2015 (ESCAPE)", url: "https://www.nejm.org/doi/full/10.1056/NEJMoa1414905" },
@@ -513,10 +517,10 @@ const REFS = {
   discount: { label: "Clarençon et al., JAMA 2026 (DISCOUNT)", url: "https://jamanetwork.com/journals/jama/fullarticle/2830000" },
   oriental: { label: "Jing / Hu et al., NEJM 2026 (ORIENTAL-MeVO)", url: "https://www.nejm.org/doi/full/10.1056/NEJMoa2514120" },
 };
-
+ 
 // perfusion-dependent value: missing if perfusion not done or value absent
 function pv(s, key) { return (s.perfDone !== 'yes') ? null : num(s[key]); }
-
+ 
 const TRIALS = [
   // ================== EARLY WINDOW ==================
   {
@@ -540,7 +544,14 @@ const TRIALS = [
       { label: 'NIHSS ≥ 6 (disabling)', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Randomization ≤ 12 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 12) },
       { label: 'Pre-stroke independent (Barthel > 90 ≈ mRS 0–2)', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 2) },
-      { label: 'Occlusion: carotid T / M1 (or ≥2 M2s)', fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
+      { label: 'Occlusion: carotid T / M1, or M1-equivalent (≥2 M2 branches)', fn: s => {
+          if (['ica','m1'].includes(s.occlusion)) return { s: 'pass' };
+          if (s.m2equiv === 'yes') return { s: 'pass' };            // M1-equivalent
+          if (s.m2equiv === 'no') return { s: 'fail' };             // single M2, not M1-equivalent
+          if (['m2prox','m2dist'].includes(s.occlusion)) return { s: 'missing' }; // set "≥2 M2 branches" to assess
+          if (need(s.occlusion)) return { s: 'missing' };
+          return { s: 'fail' };
+        } },
       { label: 'ASPECTS 6–10', fn: s => chk(num(s.aspects) === null, num(s.aspects) >= 6) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
@@ -597,7 +608,7 @@ const TRIALS = [
     ],
     note: 'NCCT ASPECTS cutoff shown. Ages 81–85 required ASPECTS ≥9.'
   },
-
+ 
   // ================== LATE WINDOW ==================
   {
     id: 'defuse3', name: 'DEFUSE-3', group: 'late', year: 2018, ref: REFS.defuse3,
@@ -638,22 +649,22 @@ const TRIALS = [
     ],
     note: 'Mismatch groups — A: age ≥80, NIHSS ≥10, core <21 mL · B: age <80, NIHSS ≥10, core <31 mL · C: age <80, NIHSS ≥20, core 31–50 mL.'
   },
-
+ 
   // ================== LARGE CORE ==================
   {
     id: 'rescue', name: 'RESCUE-Japan LIMIT', group: 'large', year: 2022, ref: REFS.rescue,
-    sub: '≤ 6 h (CT) · ICA/M1 · NCCT ASPECTS 3–5',
+    sub: '≤ 6 h · ICA/M1 · ASPECTS 3–5 (NCCT/DWI)',
     criteria: [
       { label: 'Age ≥ 18', fn: s => chk(num(s.age) === null, num(s.age) >= 18) },
       { label: 'NIHSS ≥ 6', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Window ≤ 6 h from onset (late window needs FLAIR-MRI)', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 6) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
       { label: 'Occlusion: ICA / M1', fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
-      { label: 'ASPECTS 3–5 (NCCT)', fn: s => chk(num(s.aspects) === null, num(s.aspects) >= 3 && num(s.aspects) <= 5) },
+      { label: 'ASPECTS 3–5 (NCCT or DWI)', fn: s => chk(num(s.aspects) === null, num(s.aspects) >= 3 && num(s.aspects) <= 5) },
       { label: 'No significant midline shift / mass effect', fn: s => chk(need(s.massEffect), s.massEffect === 'no') },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
-    note: 'Trial used mainly DWI-ASPECTS; NCCT ASPECTS 3–5 applied here. Late 6–24 h entry required FLAIR-negative MRI — not assessable on CT, so only ≤6 h qualifies here.'
+    note: 'ASPECTS 3–5 assessed on NCCT or DWI, per trial (DWI-ASPECTS was the primary modality). Late 6–24 h entry required FLAIR-negative MRI — not assessable on CT, so only ≤6 h qualifies here.'
   },
   {
     id: 'select2', name: 'SELECT2', group: 'large', year: 2023, ref: REFS.select2,
@@ -703,7 +714,7 @@ const TRIALS = [
     ],
     note: 'Core 70–100 mL is both a floor and a ceiling: cores >100 mL were excluded. Only trial that enrolled ASPECTS 0–2.'
   },
-
+ 
   // ================== POSTERIOR CIRCULATION (BASILAR) ==================
   {
     id: 'attention', name: 'ATTENTION', group: 'posterior', year: 2022, ref: REFS.attention,
@@ -739,11 +750,12 @@ const TRIALS = [
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
       { label: 'Occlusion: basilar artery', fn: s => chk(need(s.occlusion), s.occlusion === 'basilar') },
       { label: 'pc-ASPECTS ≥ 6', fn: s => chk(num(s.pcaspects) === null, num(s.pcaspects) >= 6) },
+      { label: 'Pons–midbrain index ≤ 2 (extensive brainstem infarct excluded)', fn: s => chk(num(s.pmi) === null, num(s.pmi) <= 2) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
-    note: 'NIHSS floor amended from ≥10 to ≥6. Also required pons–midbrain index ≤2 (extensive brainstem infarct excluded) — assess separately. No perfusion required.'
+    note: 'NIHSS floor amended from ≥10 to ≥6. Pons–midbrain index ≤2 excludes extensive brainstem infarction. No perfusion required.'
   },
-
+ 
   // ================== MEDIUM / DISTAL VESSEL OCCLUSION (MeVO) ==================
   {
     id: 'oriental', name: 'ORIENTAL-MeVO', group: 'mevo', year: 2026, ref: REFS.oriental, result: 'positive',
@@ -762,14 +774,14 @@ const TRIALS = [
   },
   {
     id: 'escapemevo', name: 'ESCAPE-MeVO', group: 'mevo', year: 2025, ref: REFS.escapemevo, result: 'negative',
-    sub: '≤ 12 h · distal M2–M3 / A2–A3 / P2–P3',
+    sub: '≤ 12 h · M2–M3 / A2–A3 / P2–P3',
     resultNote: 'NEGATIVE trial — mRS 0–1 41.6% vs 43.1% (no benefit); excess sICH (5.4% vs 2.2%) and mortality. EVT was not beneficial.',
     criteria: [
       { label: 'Age ≥ 18', fn: s => chk(num(s.age) === null, num(s.age) >= 18) },
       { label: 'NIHSS ≥ 6 (or 3–5 if disabling)', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Window ≤ 12 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 12) },
       { label: 'Pre-stroke independent (mRS 0–2)', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 2) },
-      { label: 'Occlusion: distal M2, M3, A2–A3, P2–P3 (MeVO)', fn: s => chk(need(s.occlusion), ['m2dist','m3','aca','pca'].includes(s.occlusion)) },
+      { label: 'Occlusion: M2, M3, A2–A3, P2–P3 (MeVO)', fn: s => chk(need(s.occlusion), ['m2prox','m2dist','m3','aca','pca'].includes(s.occlusion)) },
       { label: 'ASPECTS > 5', fn: s => chk(num(s.aspects) === null, num(s.aspects) > 5) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
@@ -791,20 +803,20 @@ const TRIALS = [
   },
   {
     id: 'discount', name: 'DISCOUNT', group: 'mevo', year: 2026, ref: REFS.discount, result: 'negative',
-    sub: '≤ 6 h · distal M2, M3, ACA, PCA · stopped early',
+    sub: '≤ 24 h · distal M2, M3, ACA, PCA · stopped early',
     resultNote: 'STOPPED EARLY for futility + harm — mRS 0–2 62% vs 68% (OR 0.73, ns); sICH 11% vs 3%. Not beneficial.',
     criteria: [
       { label: 'Age ≥ 18', fn: s => chk(num(s.age) === null, num(s.age) >= 18) },
       { label: 'NIHSS ≥ 5', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 5) },
-      { label: 'Groin puncture ≤ 6 h', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 6) },
+      { label: 'Window ≤ 24 h from last known well (6–24 h needs advanced imaging)', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 24) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
       { label: 'Primary distal M2, M3, ACA, PCA', fn: s => chk(need(s.occlusion), ['m2dist','m3','aca','pca'].includes(s.occlusion)) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
-    note: 'French trial stopped early by the DSMB for futility and excess hemorrhage. NEGATIVE.'
+    note: 'Enrolled out to 24 h from last known well; the 6–24 h window required advanced imaging (perfusion or diffusion mismatch) — assess separately. French trial stopped early by the DSMB for futility and excess hemorrhage. NEGATIVE.'
   },
 ];
-
+ 
 function evaluateTrial(trial, s) {
   const rows = trial.criteria.map(c => ({ label: c.label, ...c.fn(s) }));
   let verdict;
@@ -813,18 +825,18 @@ function evaluateTrial(trial, s) {
   else verdict = 'go';
   return { verdict, rows };
 }
-
+ 
 function evaluateAll(s) {
   return TRIALS.map(t => ({ trial: t, ...evaluateTrial(t, s) }));
 }
 /* ================= LOGIC-END ================= */
-
+ 
 // ---- UI wiring ---------------------------------------------------------
-const segIds = ['tpa','hemorrhage','massEffect','multiOcc','perfDone'];
-const numIds = ['age','nihss','lkw','aspects','pcaspects','coreVol','mmRatio'];
+const segIds = ['tpa','hemorrhage','massEffect','multiOcc','perfDone','m2equiv'];
+const numIds = ['age','nihss','lkw','aspects','pcaspects','coreVol','mmRatio','pmi'];
 const selIds = ['mrs','occlusion'];
 const state = {};
-
+ 
 function initSegs() {
   segIds.forEach(id => {
     state[id] = null;
@@ -850,15 +862,18 @@ function togglePerf() {
 function updateConditionalFields() {
   const basilar = state.occlusion === 'basilar';
   document.getElementById('pcAspectsField').style.display = basilar ? 'block' : 'none';
+  document.getElementById('pmiField').style.display = basilar ? 'block' : 'none';
   document.getElementById('aspectsField').style.display = basilar ? 'none' : 'block';
+  document.getElementById('m2equivField').style.display =
+    (state.occlusion === 'm2prox' || state.occlusion === 'm2dist') ? 'block' : 'none';
 }
 function readInputs() {
   numIds.forEach(id => { state[id] = document.getElementById(id).value; });
   selIds.forEach(id => { state[id] = document.getElementById(id).value || null; });
 }
-
+ 
 // Flag physiologically-impossible numeric entries (typo guard) without altering them.
-const NUM_RANGES = { age:[0,120], nihss:[0,42], lkw:[0,120], aspects:[0,10], pcaspects:[0,10], coreVol:[0,400], mmRatio:[0,50] };
+const NUM_RANGES = { age:[0,120], nihss:[0,42], lkw:[0,120], aspects:[0,10], pcaspects:[0,10], coreVol:[0,400], mmRatio:[0,50], pmi:[0,6] };
 function validateInputs() {
   let bad = 0;
   for (const id in NUM_RANGES) {
@@ -871,7 +886,7 @@ function validateInputs() {
   }
   return bad;
 }
-
+ 
 const GROUPS = [
   { key: 'early', title: 'Early window (0–6 h era trials)', sub: 'MR CLEAN · ESCAPE · SWIFT PRIME · EXTEND-IA · REVASCAT' },
   { key: 'late',  title: 'Extended window (6–24 h)', sub: 'DEFUSE-3 · DAWN' },
@@ -881,7 +896,7 @@ const GROUPS = [
 ];
 const BADGE = { go: 'MEETS CRITERIA', nogo: 'NOT ELIGIBLE', unk: 'INSUFFICIENT DATA' };
 const MARK = { pass: '✓', fail: '✗', missing: '·' };
-
+ 
 // Map a missing criterion's label to the concise data the clinician must obtain.
 function needFor(label) {
   const l = label.toLowerCase();
@@ -904,7 +919,7 @@ function needsList(rows) {
   rows.filter(r => r.s === 'missing').forEach(r => { const n = needFor(r.label); if (n && !set.includes(n)) set.push(n); });
   return set;
 }
-
+ 
 function buildTrialCard(r) {
   const applicable = r.verdict !== 'nogo';           // meets criteria OR insufficient data
   const card = document.createElement('details');
@@ -935,7 +950,7 @@ function buildTrialCard(r) {
     '<div style="height:10px"></div>';
   return card;
 }
-
+ 
 function render() {
   readInputs();
   updateConditionalFields();
@@ -1015,15 +1030,15 @@ function render() {
       '<span><b class="unk">' + counts.unk + '</b> insufficient</span>' +
       (badInputs > 0 ? '<span class="summary-warn">⚠ ' + badInputs + ' out of range</span>' : '') +
     '</div>';
-
+ 
   const container = document.getElementById('results');
   container.innerHTML = '';
-
+ 
   if (!anyData) {
     container.innerHTML = '<div class="results-empty">Enter the patient details on the left to see which trials apply.</div>';
     return;
   }
-
+ 
   // "In play" = meets criteria, insufficient data, or a near-miss. Plain not-eligible trials are tucked away.
   const inPlay = t => t.verdict !== 'nogo' || t._near;
   GROUPS.forEach(g => {
@@ -1038,7 +1053,7 @@ function render() {
     groupResults.forEach(t => grid.appendChild(buildTrialCard(t)));
     container.appendChild(grid);
   });
-
+ 
   // Collapsed "does not meet" section for the rest.
   const others = results.filter(t => !inPlay(t));
   if (others.length) {
@@ -1052,12 +1067,12 @@ function render() {
     container.appendChild(det);
   }
 }
-
+ 
 function renderRefs() {
   document.getElementById('refs').innerHTML = '<strong>References</strong> ' +
     Object.values(REFS).map(r => '<div><a href="' + r.url + '" target="_blank" rel="noopener">' + r.label + '</a></div>').join('');
 }
-
+ 
 document.getElementById('resetBtn').addEventListener('click', () => {
   numIds.forEach(id => document.getElementById(id).value = '');
   selIds.forEach(id => document.getElementById(id).value = '');
@@ -1069,11 +1084,11 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   togglePerf();
   render();
 });
-
+ 
 [...numIds, ...selIds].forEach(id => {
   document.getElementById(id).addEventListener('input', render);
 });
-
+ 
 // ================= built-in calculators =================
 const ARM_OPTS = [[0,'No drift — holds position 10 s'],[1,'Drift — drifts down but does not hit bed'],[2,'Some effort against gravity — falls to bed'],[3,'No effort against gravity — limb falls'],[4,'No movement']];
 const LEG_OPTS = [[0,'No drift — holds position 5 s'],[1,'Drift — falls by 5 s but not to bed'],[2,'Some effort against gravity — falls to bed'],[3,'No effort against gravity — falls immediately'],[4,'No movement']];
@@ -1096,7 +1111,7 @@ const NIHSS_ITEMS = [
 ];
 const ASPECTS_REGIONS = ['Caudate','Lentiform nucleus','Internal capsule','Insular ribbon','M1','M2','M3','M4','M5','M6'];
 const PCASPECTS_REGIONS = [['Left thalamus',1],['Right thalamus',1],['Left cerebellum',1],['Right cerebellum',1],['Left PCA territory',1],['Right PCA territory',1],['Midbrain',2],['Pons',2]];
-
+ 
 function buildNihss() {
   const panel = document.getElementById('nihssCalc');
   panel.innerHTML =
@@ -1190,7 +1205,7 @@ function initCalcs() {
     p.style.display = (p.style.display==='none'||!p.style.display) ? 'block' : 'none';
   }));
 }
-
+ 
 // ================= shareable case link (de-identified) =================
 function setSeg(id,val){ state[id]=val; const el=document.getElementById(id); if(el)[...el.children].forEach(c=>c.classList.toggle('on',c.dataset.val===val)); }
 function buildShareHash() {
@@ -1216,13 +1231,13 @@ document.getElementById('shareBtn').addEventListener('click',async()=>{
   catch(e){ location.hash = hash; note.textContent='Link is in the address bar — copy it to share.'; }
   setTimeout(()=>{ note.textContent='Encodes the clinical values only — no name, MRN, or identifiers.'; },3500);
 });
-
+ 
 initSegs();
 initCalcs();
 applyHash();
 render();
 renderRefs();
-
+ 
 // ---- contact form (Web3Forms) -----------------------------------------
 const contactForm = document.getElementById('contactForm');
 contactForm.addEventListener('submit', async (e) => {

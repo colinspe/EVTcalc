@@ -449,6 +449,74 @@
   .field.auto-found .auto-tag { background: var(--go-bg); color: var(--go); }
   .field.auto-inferred .auto-tag { background: var(--unk-bg); color: var(--unk); }
   .field.auto-missing .auto-tag { background: var(--nogo-bg); color: var(--nogo); }
+
+  /* ---------- mobile pass ---------- */
+  /* Grid blow-out fix: long <option> labels gave selects a ~400px min-content width, which forced the
+     single grid column (and the whole page) wider than the phone viewport. */
+  .wrap { grid-template-columns: 340px minmax(0, 1fr); }
+  .form-col, .results-col { min-width: 0; }
+  .field select, .field input[type="number"], .vig-panel textarea { min-width: 0; max-width: 100%; }
+  @media (max-width: 950px) {
+    .wrap { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 640px) {
+    header { padding: 12px 14px 10px; gap: 4px 10px; }
+    header h1 { font-size: 1.25rem; }
+    header h1::before { width: 26px; height: 26px; }
+    header .tag { font-size: 0.78rem; line-height: 1.3; }
+    .wrap { padding: 12px 12px 88px; gap: 12px; }          /* bottom padding clears the sticky bar */
+    .panel { border-radius: 12px; }
+    .panel h2 { padding: 10px 13px 8px; }
+    .panel .fields { padding: 12px 13px 13px; gap: 12px; }
+    .vig-panel textarea { font-size: 16px; min-height: 84px; }
+    .vig-btn { width: 100%; padding: 12px; font-size: 0.95rem; }
+    .vig-row { gap: 10px; }
+    .vig-annot { max-height: 160px; font-size: 0.8rem; }
+    /* collapsible vignette panel on phones */
+    .vig-panel.vig-collapsible h2 { cursor: pointer; user-select: none; }
+    .vig-panel.vig-collapsible h2::after { content: '▾'; margin-left: auto; font-size: 0.9rem; color: var(--accent); transition: transform .15s; }
+    .vig-panel.vig-collapsible.vig-closed h2::after { transform: rotate(-90deg); }
+    .vig-panel.vig-collapsible.vig-closed .fields { display: none; }
+    .vig-panel.vig-collapsible.vig-closed h2 .new::after { content: ' · tap to paste a case'; text-transform: none; letter-spacing: 0; font-weight: 500; }
+    /* results */
+    .summary-strip { position: static; border-radius: 12px; padding: 14px 14px 12px 18px; }
+    .synth-headline { font-size: 1.05rem; }
+    .synth-sub, .synth-near, .synth-near-d > summary, .synth-barrier { font-size: 0.82rem; }
+    .synth-chips { gap: 6px; }
+    .synth-chips > span { font-size: 0.78rem; padding: 3px 9px 3px 8px; }
+    .group-h { margin: 18px 2px 10px; }
+    .grid { gap: 10px; }
+    .trial > summary { padding: 12px 13px; gap: 6px; flex-direction: column; align-items: stretch; }
+    .trial > summary .badge { order: -1; align-self: flex-end; }
+    .summ-left .treason, .summ-left .tneeds { font-size: 0.78rem; }
+    .summ-left .tname { font-size: 0.98rem; }
+    .crit-list li { padding: 6px 13px; font-size: 0.86rem; }
+    .results-empty { padding: 26px 16px; }
+    .results-empty .re-title { font-size: 0.95rem; margin-bottom: 14px; }
+    .results-empty-steps { gap: 8px; }
+    .results-empty-steps > div { padding: 11px 13px; font-size: 0.82rem; }
+    .consent-panel { padding: 12px 14px; }
+    .about-panel, .contact-section { padding: 0 12px; }
+    .about-panel details { padding: 14px 16px; }
+    footer { padding: 18px 14px 96px; }
+  }
+  /* sticky bottom bar (phones only) */
+  .mbar { display: none; }
+  @media (max-width: 640px) {
+    .mbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; align-items: center; gap: 8px;
+      padding: 9px 12px calc(9px + env(safe-area-inset-bottom)); background: rgba(255,255,255,0.96); backdrop-filter: saturate(140%) blur(8px);
+      border-top: 1px solid var(--line); box-shadow: 0 -6px 18px rgba(16,35,63,0.08); }
+    .mbar .mb-counts { display: flex; gap: 5px; flex: 1; min-width: 0; }
+    .mbar .mb-counts span { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 600; padding: 5px 8px; border-radius: 16px; border: 1px solid transparent; white-space: nowrap; }
+    .mbar .mb-counts .go { background: var(--go-bg); color: var(--go); border-color: #cfe8d8; }
+    .mbar .mb-counts .nogo { background: var(--nogo-bg); color: var(--nogo); border-color: #f0d3d0; }
+    .mbar .mb-counts .unk { background: var(--unk-bg); color: var(--unk); border-color: #ebdcaa; }
+    .mbar .mb-counts span b { font-size: 0.92rem; }
+    .mbar button { font: inherit; font-weight: 700; font-size: 0.86rem; padding: 10px 14px; border: 0; border-radius: 10px; background: var(--accent); color: #fff; white-space: nowrap; flex-shrink: 0; box-shadow: 0 2px 6px rgba(62,144,212,0.35); }
+    .mbar button.alt { background: #fff; color: var(--accent-ink); border: 1px solid var(--line); box-shadow: none; }
+    .mbar.empty .mb-counts { display: none; }
+    .mbar .mb-hint { flex: 1; font-size: 0.8rem; color: var(--ink-soft); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  }
 </style>
 </head>
 <body>
@@ -1688,6 +1756,44 @@ function vigApply() {
   // any manual edit to a highlighted field clears just that field's tag
   document.querySelectorAll('.form-col .field').forEach(w => w.addEventListener('input', () => { if (w.classList.contains('auto-missing')) { w.classList.remove('auto-missing'); const t = w.querySelector('.auto-tag'); if (t) t.remove(); } }));
   document.querySelectorAll('.form-col .seg').forEach(seg => seg.addEventListener('click', () => { const w = seg.closest('.field'); if (w && w.classList.contains('auto-missing')) { w.classList.remove('auto-missing'); const t = w.querySelector('.auto-tag'); if (t) t.remove(); } }));
+})();
+
+
+// ================= mobile helpers =================
+(function mobileInit() {
+  const mq = window.matchMedia('(max-width: 640px)');
+  // 1. collapsible vignette panel on phones (starts closed so the form is reachable)
+  const vig = document.querySelector('.vig-panel');
+  if (vig) {
+    const h2 = vig.querySelector('h2');
+    const apply = () => { if (mq.matches) { vig.classList.add('vig-collapsible'); if (!vig.dataset.userOpened) vig.classList.add('vig-closed'); } else { vig.classList.remove('vig-collapsible', 'vig-closed'); } };
+    h2.addEventListener('click', () => { if (!mq.matches) return; vig.classList.toggle('vig-closed'); vig.dataset.userOpened = '1'; if (!vig.classList.contains('vig-closed')) setTimeout(() => document.getElementById('vigText').focus(), 50); });
+    apply(); mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply);
+  }
+  // 2. sticky bottom bar mirroring the verdict counts, with jump buttons
+  const bar = document.createElement('div'); bar.className = 'mbar empty';
+  bar.innerHTML = '<div class="mb-counts"><span class="go"><b>0</b> meets</span><span class="nogo"><b>0</b> no</span><span class="unk"><b>0</b> ?</span></div><div class="mb-hint">Enter patient data below</div><button type="button" class="mb-jump">Results ↓</button>';
+  document.body.appendChild(bar);
+  const summary = document.getElementById('summary'); const formCol = document.querySelector('.form-col');
+  const jump = bar.querySelector('.mb-jump'); const hint = bar.querySelector('.mb-hint'); const counts = bar.querySelectorAll('.mb-counts b');
+  let mode = 'toResults';
+  const setMode = m => { mode = m; jump.textContent = m === 'toResults' ? 'Results ↓' : 'Edit inputs ↑'; jump.classList.toggle('alt', m !== 'toResults'); };
+  jump.addEventListener('click', () => {
+    if (mode === 'toResults') { summary.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    else { formCol.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+  const sync = () => {
+    const bs = summary.querySelectorAll('.synth-chips b');
+    if (bs.length >= 3) { counts[0].textContent = bs[0].textContent; counts[1].textContent = bs[1].textContent; counts[2].textContent = bs[2].textContent; }
+    const head = summary.querySelector('.synth-headline'); const anyData = head && !/Enter patient data/i.test(head.textContent);
+    bar.classList.toggle('empty', !anyData);
+    hint.textContent = anyData ? head.textContent : 'Enter patient data below';
+    hint.style.display = anyData ? 'none' : '';
+  };
+  new MutationObserver(sync).observe(summary, { childList: true, subtree: true, characterData: true }); sync();
+  // flip the button depending on whether results are on screen
+  const io = new IntersectionObserver(entries => { entries.forEach(e => setMode(e.isIntersecting || e.boundingClientRect.top < 0 ? 'toForm' : 'toResults')); }, { threshold: 0 });
+  io.observe(summary);
 })();
 
  

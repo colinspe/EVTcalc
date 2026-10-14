@@ -46,6 +46,8 @@
     --nogo-bg: #fbecea;
     --unk: #8a6d1a;
     --unk-bg: #fdf6e3;
+    --na: #6b7280;
+    --na-bg: #eef0f3;
     --miss: #6b7684;
     --miss-bg: #eef1f4;
     --radius: 10px;
@@ -145,6 +147,19 @@
   .badge.go { background: var(--go-bg); color: var(--go); }
   .badge.nogo { background: var(--nogo-bg); color: var(--nogo); }
   .badge.unk { background: var(--unk-bg); color: var(--unk); }
+  .badge.na { background: var(--na-bg); color: var(--na); }
+  .synth-chips b.na { color: var(--na); }
+  .crit-list .na .mark { color: var(--na); }
+  .crit-list .na { color: var(--na); }
+  .trial.isna > summary { opacity: 0.8; }
+  .trial.isna .tsub { color: var(--na); }
+  .others.na-group > summary { color: var(--na); }
+  .m2block { display: flex; flex-direction: column; gap: 9px; border-left: 3px solid #cfe3f6; padding-left: 12px; }
+  .m2row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; }
+  .seg.compact button { font-size: 0.8rem; padding: 7px 2px; }
+  .m2def { margin-top: 2px; font-size: 0.78rem; color: var(--ink-soft); }
+  .m2def summary { cursor: pointer; color: var(--accent-ink); font-weight: 600; }
+  .m2def p { margin: 6px 0 0; line-height: 1.45; }
   .respill { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 20px; margin-left: 7px; vertical-align: middle; white-space: nowrap; }
   .respill.pos { background: var(--go-bg); color: var(--go); }
   .respill.neg { background: var(--nogo-bg); color: var(--nogo); }
@@ -200,7 +215,7 @@
   .about-panel details[open] summary { margin-bottom: 10px; }
   .about-panel p { font-size: 0.86rem; color: var(--ink-soft); margin-bottom: 9px; }
   .about-panel .vk { display: inline-block; font-weight: 700; }
-  .about-panel .vk.go { color: var(--go); } .about-panel .vk.unk { color: var(--unk); } .about-panel .vk.nogo { color: var(--nogo); }
+  .about-panel .vk.go { color: var(--go); } .about-panel .vk.unk { color: var(--unk); } .about-panel .vk.nogo { color: var(--nogo); } .about-panel .vk.na { color: var(--na); }
  
   /* ---------- contact ---------- */
   .contact-section { max-width: 720px; margin: 8px auto 0; padding: 0 22px; }
@@ -328,6 +343,7 @@
   .synth-chips > span:has(b.go) { background: var(--go-bg); border-color: #cfe8d8; color: var(--go); }
   .synth-chips > span:has(b.nogo) { background: var(--nogo-bg); border-color: #f0d3d0; color: var(--nogo); }
   .synth-chips > span:has(b.unk) { background: var(--unk-bg); border-color: #ebdcaa; color: var(--unk); }
+  .synth-chips > span:has(b.na) { background: var(--na-bg); border-color: #d9dde3; color: var(--na); }
   .synth-near, .synth-near-d > summary { font-weight: 600; }
 
   /* group headers */
@@ -349,7 +365,7 @@
   .summ-left .tsub { font-size: 0.75rem; margin-top: 2px; }
   .badge { padding: 5px 10px; font-size: 0.68rem; letter-spacing: 0.06em; display: inline-flex; align-items: center; gap: 6px; border: 1px solid transparent; }
   .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.85; }
-  .badge.go { border-color: #cfe8d8; } .badge.nogo { border-color: #f0d3d0; } .badge.unk { border-color: #ebdcaa; }
+  .badge.go { border-color: #cfe8d8; } .badge.nogo { border-color: #f0d3d0; } .badge.unk { border-color: #ebdcaa; } .badge.na { border-color: #d9dde3; }
   .crit-list { padding: 8px 0; }
   .crit-list li { padding: 5px 16px; }
   .crit-list li + li { border-top: 1px solid #f3f6f9; }
@@ -511,6 +527,7 @@
     .mbar .mb-counts .go { background: var(--go-bg); color: var(--go); border-color: #cfe8d8; }
     .mbar .mb-counts .nogo { background: var(--nogo-bg); color: var(--nogo); border-color: #f0d3d0; }
     .mbar .mb-counts .unk { background: var(--unk-bg); color: var(--unk); border-color: #ebdcaa; }
+    .mbar .mb-counts .na { background: var(--na-bg); color: var(--na); border-color: #d9dde3; }
     .mbar .mb-counts span b { font-size: 0.92rem; }
     .mbar button { font: inherit; font-weight: 700; font-size: 0.86rem; padding: 10px 14px; border: 0; border-radius: 10px; background: var(--accent); color: #fff; white-space: nowrap; flex-shrink: 0; box-shadow: 0 2px 6px rgba(62,144,212,0.35); }
     .mbar button.alt { background: #fff; color: var(--accent-ink); border: 1px solid var(--line); box-shadow: none; }
@@ -595,11 +612,11 @@
             <optgroup label="Large-vessel occlusion (LVO)">
               <option value="ica">ICA (intracranial / terminus)</option>
               <option value="m1">MCA — M1</option>
-              <option value="m2prox">MCA — M2 proximal / dominant</option>
               <option value="basilar">Basilar artery</option>
             </optgroup>
+              <option value="m2">MCA — M2</option>
+            </optgroup>
             <optgroup label="Medium / distal vessel (MeVO)">
-              <option value="m2dist">MCA — M2 distal / co- or non-dominant</option>
               <option value="m3">MCA — M3</option>
               <option value="aca">ACA — A2 / A3</option>
               <option value="pca">PCA — P2 / P3</option>
@@ -609,8 +626,20 @@
           </select></div>
         <div class="field"><label>Bilateral strokes / multi-territory occlusions</label>
           <div class="seg" id="multiOcc" data-opts="no:No,yes:Yes,unk:Unknown"></div></div>
-        <div class="field" id="m2equivField" style="display:none;"><label>≥2 M2 branches occluded <span class="hint">(M1-equivalent; ESCAPE)</span></label>
-          <div class="seg" id="m2equiv" data-opts="no:No,yes:Yes,unk:Unknown"></div></div>
+        <div id="m2Block" class="m2block" style="display:none;">
+          <div class="field"><label>M2 trunk <span class="hint">dominant = &gt;50% of the MCA territory</span></label>
+            <div class="seg compact" id="m2dom" data-opts="dominant:Dominant,codom:Co-dominant,nondom:Non-dominant,multi:≥2 branches,unk:Unknown"></div></div>
+          <div class="m2row">
+            <div class="field"><label>Segment <span class="hint">proximal = ≤1 cm from the bifurcation</span></label>
+              <div class="seg compact" id="m2pos" data-opts="prox:Proximal,dist:Distal"></div></div>
+            <div class="field"><label>Trunk diameter <span class="hint">mm, optional</span></label>
+              <input type="number" id="m2diam" min="0" max="6" step="0.1" placeholder="e.g. 1.8"></div>
+          </div>
+          <details class="m2def"><summary>How the trials define dominant vs non-dominant M2</summary>
+            <p>There is no single definition. <b>ESCAPE-MeVO</b> and <b>DISCOUNT</b> classify M2 by position only (within or beyond 1 cm of the bifurcation; above the insular mid-height) and never use the word dominant. <b>DISTAL</b> enrolled "co-dominant or non-dominant M2" without a stated definition, leaving the call to each site. <b>ORIENTAL-MeVO</b> enrolled co-dominant or non-dominant M2 with vessel diameter ≤2.0 mm and excluded dominant M2 by that cap. The convention most readers apply comes from the HERMES M2 analysis (Menon et al. 2019): dominant if the trunk supplies more than 50% of the MCA territory, co-dominant if about half, non-dominant if less. <b>ESCAPE</b> (2015) treated an M2 as M1-equivalent when ≥2 M2 branches were occluded or a single trunk carried the majority of the MCA territory. <b>MR CLEAN</b> and <b>EXTEND-IA</b> enrolled "proximal M2" without defining it.</p>
+            <p>EVTcalc applies each trial's own rule: trunk type for DISTAL and ESCAPE (diameter ≤2.0 mm stands in for non-dominant when the trunk type is unknown); diameter for ORIENTAL-MeVO (trunk type stands in when diameter is not measured); segment for MR CLEAN, EXTEND-IA and DISCOUNT (a dominant or multi-branch occlusion is taken as proximal when the segment is not given).</p>
+          </details>
+        </div>
       </div>
     </div>
  
@@ -703,7 +732,7 @@
   <details>
     <summary>About &amp; methodology</summary>
     <p>EVTcalc lets you enter a patient's clinical and CT/CTA findings once and see, at a glance, which landmark mechanical-thrombectomy trials that patient would have qualified for. It covers the early-window trials (MR CLEAN, ESCAPE, SWIFT PRIME, EXTEND-IA, REVASCAT), the extended-window trials (DEFUSE-3, DAWN), the large-core trials (RESCUE-Japan LIMIT, SELECT2, ANGEL-ASPECT), and the posterior-circulation trials (ATTENTION, BAOCHE).</p>
-    <p>Each trial is evaluated criterion by criterion against its published inclusion/exclusion rules. Every criterion resolves to pass, fail, or missing, and the trial verdict follows from those: <span class="vk nogo">Not eligible</span> if any criterion fails, <span class="vk unk">Insufficient data</span> if nothing fails but a needed value is missing, and <span class="vk go">Meets criteria</span> only when every criterion passes. To reduce clutter, trials the patient doesn't qualify for collapse to a one-line row showing the disqualifying reason; click any row to expand its full checklist.</p>
+    <p>Each trial is evaluated criterion by criterion against its published inclusion/exclusion rules. Every criterion resolves to pass, fail, or missing, and the trial verdict follows from those: <span class="vk nogo">Not eligible</span> if any criterion fails, <span class="vk unk">Insufficient data</span> if nothing fails but a needed value is missing, and <span class="vk go">Meets criteria</span> only when every criterion passes. A fourth state, <span class="vk na">Not applicable</span>, is shown in grey when the occlusion is outside the vascular territory a trial studied at all (for example, the basilar and MeVO trials for an M1 occlusion), so those trials are set aside rather than counted as failures. To reduce clutter, trials the patient doesn't qualify for collapse to a one-line row showing the disqualifying reason; click any row to expand its full checklist.</p>
     <p>Criteria are simplified in places, and those simplifications are noted on the individual trial cards (for example, this tool assumes CT/CTA-based selection, so RESCUE-Japan LIMIT's MRI-dependent late window is not scored). Perfusion fields are optional — trials that genuinely need a core volume show "insufficient data" rather than a false verdict when perfusion is left blank. Always verify against the primary publication linked on each card before acting.</p>
     <p><strong>Vignette extraction.</strong> The "Paste a clinical vignette" box uses rule-based pattern matching, running entirely in your browser, to pre-fill the form from free text. It is a convenience, not a substitute for reading the chart: every value it fills is highlighted (green when stated in the text, amber when inferred, red when a needed value was not found) so you can verify each one before acting on the results. Nothing you paste is transmitted or stored.</p>
     <p><strong>EVTcalc is an independent educational tool and is not affiliated with, endorsed by, or connected to MDCalc.</strong></p>
@@ -727,8 +756,10 @@ function chk(missing, cond) { return missing ? { s: 'missing' } : { s: cond ? 'p
 // State shape:
 // age, nihss, lkw, aspects, pcaspects, coreVol, mmRatio, pmi  -> numbers or null
 // mrs -> number or null
-// tpa, hemorrhage, massEffect, multiOcc, m2equiv -> 'yes'|'no'|'unk'|null
-// occlusion -> 'ica'|'m1'|'m2'|'basilar'|'other'|'none'|null
+// tpa, hemorrhage, massEffect, multiOcc -> 'yes'|'no'|'unk'|null
+// m2dom -> 'dominant'|'codom'|'nondom'|'multi'(≥2 branches)|'unk'|null ; m2pos -> 'prox'|'dist'|'unk'|null ; m2diam -> mm or null
+// occlusion -> 'ica'|'m1'|'m2'|'m3'|'aca'|'pca'|'basilar'|'other'|'none'|null
+// A criterion may also return {s:'missing', need:'<datum>'} to name the datum that would resolve it.
 // perfDone -> 'yes'|'no'|null
  
 const REFS = {
@@ -753,36 +784,84 @@ const REFS = {
 // perfusion-dependent value: missing if perfusion not done or value absent
 function pv(s, key) { return (s.perfDone !== 'yes') ? null : num(s[key]); }
  
+// ---- M2 dominance helpers ----
+function isM2(s) { return s.occlusion === 'm2'; }
+// Working dominance: stated trunk type first (≥2 branches counts as dominant); otherwise diameter (≤2.0 mm = co-/non-dominant).
+function m2Dominance(s) {
+  if (s.m2dom === 'dominant' || s.m2dom === 'multi') return 'dominant';
+  if (s.m2dom === 'codom' || s.m2dom === 'nondom') return 'nondom';
+  const d = num(s.m2diam);
+  if (d !== null) return d <= 2.0 ? 'nondom' : 'dominant';
+  return null;
+}
+// Working segment: stated; otherwise a dominant / multi-branch occlusion is taken as proximal.
+function m2Segment(s) {
+  if (s.m2pos === 'prox' || s.m2pos === 'dist') return s.m2pos;
+  if (s.m2dom === 'dominant' || s.m2dom === 'multi') return 'prox';
+  return null;
+}
+const NEED_M2 = 'M2 trunk type / diameter';
+const NEED_M2POS = 'M2 segment (proximal / distal)';
+// Proximal-M2 trials (MR CLEAN, EXTEND-IA): ICA/M1 pass; M2 needs segment.
+function proxM2Site(s, extra) {
+  if (need(s.occlusion)) return { s: 'missing' };
+  if ((extra || ['ica','m1']).includes(s.occlusion)) return { s: 'pass' };
+  if (!isM2(s)) return { s: 'fail' };
+  const seg = m2Segment(s);
+  if (seg === null) return { s: 'missing', need: NEED_M2POS };
+  return { s: seg === 'prox' ? 'pass' : 'fail' };
+}
+// ORIENTAL-MeVO: co-/non-dominant M2 with diameter ≤2.0 mm. Diameter governs when measured; stated dominance stands in when it is not.
+function orientalM2(s) {
+  const d = num(s.m2diam);
+  if (d !== null) return { s: (d <= 2.0 && s.m2dom !== 'dominant' && s.m2dom !== 'multi') ? 'pass' : 'fail' };
+  if (s.m2dom === 'dominant' || s.m2dom === 'multi') return { s: 'fail' };
+  if (s.m2dom === 'codom' || s.m2dom === 'nondom') return { s: 'pass' };
+  return { s: 'missing', need: NEED_M2 };
+}
+// DISTAL: co-/non-dominant M2 (site judgment; <50% MCA territory). Diameter ≤2.0 mm accepted as surrogate when dominance not stated.
+function distalM2(s) {
+  const dom = m2Dominance(s);
+  if (dom === null) return { s: 'missing', need: NEED_M2 };
+  return { s: dom === 'nondom' ? 'pass' : 'fail' };
+}
+ 
+// Vascular territory each trial studied. An occlusion outside the set makes the trial NOT APPLICABLE (grey) rather than not eligible.
+const V_ICAM1 = ['ica','m1'];                         // trials that enrolled ICA / M1 only
+const V_ANT  = ['ica','m1','m2'];                     // anterior trials that also enrolled proximal / M1-equivalent M2
+const V_POST = ['basilar'];                           // basilar trials
+const V_MEVO = ['m2','m3','aca','pca'];               // medium/distal vessel trials
+ 
 const TRIALS = [
   // ================== EARLY WINDOW ==================
   {
-    id: 'mrclean', name: 'MR CLEAN', group: 'early', year: 2015, ref: REFS.mrclean,
+    id: 'mrclean', name: 'MR CLEAN', group: 'early', year: 2015, ref: REFS.mrclean, vessels: [...V_ANT, 'aca'],
     sub: '0–6 h · ICA/M1/M2/ACA · NIHSS ≥2 · no imaging core filter',
     criteria: [
       { label: 'Age ≥ 18', fn: s => chk(num(s.age) === null, num(s.age) >= 18) },
       { label: 'NIHSS ≥ 2', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 2) },
       { label: 'Groin puncture possible ≤ 6 h from onset', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 6) },
-      { label: 'Occlusion: distal ICA, M1, proximal M2 (or A1/A2)', fn: s => chk(need(s.occlusion), ['ica','m1','m2prox'].includes(s.occlusion)) },
+      { label: 'Occlusion: distal ICA, M1, proximal M2 (or A1/A2)', site: true, fn: s => proxM2Site(s, ['ica','m1','aca']) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
       { label: 'No pre-stroke functional restriction (any mRS)', fn: () => ({ s: 'pass' }) },
     ],
     note: 'Least restrictive imaging of the 2015 trials — no ASPECTS or core-volume threshold.'
   },
   {
-    id: 'escape', name: 'ESCAPE', group: 'early', year: 2015, ref: REFS.escape,
+    id: 'escape', name: 'ESCAPE', group: 'early', year: 2015, ref: REFS.escape, vessels: V_ANT,
     sub: '0–12 h · ICA-T/M1 · ASPECTS ≥6',
     criteria: [
       { label: 'Age ≥ 18', fn: s => chk(num(s.age) === null, num(s.age) >= 18) },
       { label: 'NIHSS ≥ 6 (disabling)', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Randomization ≤ 12 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 12) },
       { label: 'Pre-stroke independent (Barthel > 90 ≈ mRS 0–2)', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 2) },
-      { label: 'Occlusion: carotid T / M1, or M1-equivalent (≥2 M2 branches)', fn: s => {
+      { label: 'Occlusion: carotid T / M1, or M1-equivalent M2 (≥2 M2 branches or a dominant trunk)', site: true, fn: s => {
           if (['ica','m1'].includes(s.occlusion)) return { s: 'pass' };
-          if (s.m2equiv === 'yes') return { s: 'pass' };            // M1-equivalent
-          if (s.m2equiv === 'no') return { s: 'fail' };             // single M2, not M1-equivalent
-          if (['m2prox','m2dist'].includes(s.occlusion)) return { s: 'missing' }; // set "≥2 M2 branches" to assess
           if (need(s.occlusion)) return { s: 'missing' };
-          return { s: 'fail' };
+          if (!isM2(s)) return { s: 'fail' };
+          const dom = m2Dominance(s);                              // ≥2 branches or a dominant trunk = M1-equivalent
+          if (dom === null) return { s: 'missing', need: NEED_M2 };
+          return { s: dom === 'dominant' ? 'pass' : 'fail' };
         } },
       { label: 'ASPECTS 6–10', fn: s => chk(num(s.aspects) === null, num(s.aspects) >= 6) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
@@ -790,7 +869,7 @@ const TRIALS = [
     note: 'Pre-stroke independence measured as Barthel Index >90 in the trial; approximated here by mRS 0–2. Trial also required ≥50% MCA pial collateral filling.'
   },
   {
-    id: 'swift', name: 'SWIFT PRIME', group: 'early', year: 2015, ref: REFS.swift,
+    id: 'swift', name: 'SWIFT PRIME', group: 'early', year: 2015, ref: REFS.swift, vessels: V_ICAM1,
     sub: '0–6 h · after IV tPA · ICA/M1 · ASPECTS ≥6',
     criteria: [
       { label: 'Age 18–80', fn: s => chk(num(s.age) === null, num(s.age) >= 18 && num(s.age) <= 80) },
@@ -798,14 +877,14 @@ const TRIALS = [
       { label: 'Groin puncture ≤ 6 h from onset', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 6) },
       { label: 'IV tPA initiated ≤ 4.5 h (required)', fn: s => chk(need(s.tpa), s.tpa === 'yes') },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
-      { label: 'Occlusion: intracranial ICA / M1', fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
+      { label: 'Occlusion: intracranial ICA / M1', site: true, fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
       { label: 'ASPECTS ≥ 6 (amended criteria)', fn: s => chk(num(s.aspects) === null, num(s.aspects) >= 6) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
     note: 'First 71 patients required RAPID target-mismatch (core ≤50 mL); protocol then amended to ASPECTS-based selection shown here. Trial also excluded infarct >1/3 MCA (≈ ASPECTS <6).'
   },
   {
-    id: 'extendia', name: 'EXTEND-IA', group: 'early', year: 2015, ref: REFS.extendia,
+    id: 'extendia', name: 'EXTEND-IA', group: 'early', year: 2015, ref: REFS.extendia, vessels: V_ANT,
     sub: '0–6 h · after IV tPA · RAPID mismatch · no NIHSS floor',
     criteria: [
       { label: 'Age ≥ 18', fn: s => chk(num(s.age) === null, num(s.age) >= 18) },
@@ -813,7 +892,7 @@ const TRIALS = [
       { label: 'IV tPA ≤ 4.5 h (required)', fn: s => chk(need(s.tpa), s.tpa === 'yes') },
       { label: 'Groin puncture ≤ 6 h from onset', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 6) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
-      { label: 'Occlusion: ICA / M1 / proximal M2', fn: s => chk(need(s.occlusion), ['ica','m1','m2prox'].includes(s.occlusion)) },
+      { label: 'Occlusion: ICA / M1 / proximal M2', site: true, fn: s => proxM2Site(s) },
       { label: 'RAPID: core < 70 mL', fn: s => chk(pv(s,'coreVol') === null, pv(s,'coreVol') < 70) },
       { label: 'RAPID: mismatch ratio > 1.2', fn: s => chk(pv(s,'mmRatio') === null, pv(s,'mmRatio') > 1.2) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
@@ -821,14 +900,14 @@ const TRIALS = [
     note: 'Trial also required absolute mismatch volume >10 mL — nearly always met when core <70 mL and ratio >1.2.'
   },
   {
-    id: 'revascat', name: 'REVASCAT', group: 'early', year: 2015, ref: REFS.revascat,
+    id: 'revascat', name: 'REVASCAT', group: 'early', year: 2015, ref: REFS.revascat, vessels: V_ICAM1,
     sub: '0–8 h · ICA/M1 · NCCT ASPECTS ≥7',
     criteria: [
       { label: 'Age 18–85', fn: s => chk(num(s.age) === null, num(s.age) >= 18 && num(s.age) <= 85) },
       { label: 'NIHSS ≥ 6', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Groin puncture ≤ 8 h from onset', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 8) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
-      { label: 'Occlusion: intracranial ICA / M1 (± tandem)', fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
+      { label: 'Occlusion: intracranial ICA / M1 (± tandem)', site: true, fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
       { label: 'ASPECTS ≥ 7 on NCCT (≥9 if age 81–85)', fn: s => {
           const a = num(s.aspects), age = num(s.age);
           if (a === null) return { s: 'missing' };
@@ -843,14 +922,14 @@ const TRIALS = [
  
   // ================== LATE WINDOW ==================
   {
-    id: 'defuse3', name: 'DEFUSE-3', group: 'late', year: 2018, ref: REFS.defuse3,
+    id: 'defuse3', name: 'DEFUSE-3', group: 'late', year: 2018, ref: REFS.defuse3, vessels: V_ICAM1,
     sub: '6–16 h · ICA/M1 · RAPID target mismatch',
     criteria: [
       { label: 'Age 18–90', fn: s => chk(num(s.age) === null, num(s.age) >= 18 && num(s.age) <= 90) },
       { label: 'NIHSS ≥ 6', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Window 6–16 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) >= 6 && num(s.lkw) <= 16) },
       { label: 'Pre-stroke mRS 0–2', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 2) },
-      { label: 'Occlusion: ICA (cervical or intracranial) / M1', fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
+      { label: 'Occlusion: ICA (cervical or intracranial) / M1', site: true, fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
       { label: 'ASPECTS ≥ 6 on NCCT', fn: s => chk(num(s.aspects) === null, num(s.aspects) >= 6) },
       { label: 'RAPID: core < 70 mL (CTP)', fn: s => chk(pv(s,'coreVol') === null, pv(s,'coreVol') < 70) },
       { label: 'RAPID: mismatch ratio ≥ 1.8', fn: s => chk(pv(s,'mmRatio') === null, pv(s,'mmRatio') >= 1.8) },
@@ -860,14 +939,14 @@ const TRIALS = [
     note: 'Trial also required absolute mismatch volume ≥15 mL (nearly always met when core <70 mL and ratio ≥1.8) and life expectancy >6 months.'
   },
   {
-    id: 'dawn', name: 'DAWN', group: 'late', year: 2018, ref: REFS.dawn,
+    id: 'dawn', name: 'DAWN', group: 'late', year: 2018, ref: REFS.dawn, vessels: V_ICAM1,
     sub: '6–24 h · ICA/M1 · clinical–core mismatch (A/B/C)',
     criteria: [
       { label: 'Age ≥ 18', fn: s => chk(num(s.age) === null, num(s.age) >= 18) },
       { label: 'NIHSS ≥ 10', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 10) },
       { label: 'Window 6–24 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) >= 6 && num(s.lkw) <= 24) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
-      { label: 'Occlusion: intracranial ICA / M1', fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
+      { label: 'Occlusion: intracranial ICA / M1', site: true, fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
       { label: 'Clinical–core mismatch (RAPID CTP)', fn: s => {
           const age = num(s.age), n = num(s.nihss), core = pv(s,'coreVol');
           if (age === null || n === null || core === null) return { s: 'missing' };
@@ -884,14 +963,14 @@ const TRIALS = [
  
   // ================== LARGE CORE ==================
   {
-    id: 'rescue', name: 'RESCUE-Japan LIMIT', group: 'large', year: 2022, ref: REFS.rescue,
+    id: 'rescue', name: 'RESCUE-Japan LIMIT', group: 'large', year: 2022, ref: REFS.rescue, vessels: V_ICAM1,
     sub: '≤ 6 h · ICA/M1 · ASPECTS 3–5 (NCCT/DWI)',
     criteria: [
       { label: 'Age ≥ 18', fn: s => chk(num(s.age) === null, num(s.age) >= 18) },
       { label: 'NIHSS ≥ 6', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Window ≤ 6 h from onset (late window needs FLAIR-MRI)', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 6) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
-      { label: 'Occlusion: ICA / M1', fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
+      { label: 'Occlusion: ICA / M1', site: true, fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
       { label: 'ASPECTS 3–5 (NCCT or DWI)', fn: s => chk(num(s.aspects) === null, num(s.aspects) >= 3 && num(s.aspects) <= 5) },
       { label: 'No significant midline shift / mass effect', fn: s => chk(need(s.massEffect), s.massEffect === 'no') },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
@@ -899,14 +978,14 @@ const TRIALS = [
     note: 'ASPECTS 3–5 assessed on NCCT or DWI, per trial (DWI-ASPECTS was the primary modality). Late 6–24 h entry required FLAIR-negative MRI — not assessable on CT, so only ≤6 h qualifies here.'
   },
   {
-    id: 'select2', name: 'SELECT2', group: 'large', year: 2023, ref: REFS.select2,
+    id: 'select2', name: 'SELECT2', group: 'large', year: 2023, ref: REFS.select2, vessels: V_ICAM1,
     sub: '0–24 h · ICA/M1 · ASPECTS 3–5 or core ≥50 mL',
     criteria: [
       { label: 'Age 18–85', fn: s => chk(num(s.age) === null, num(s.age) >= 18 && num(s.age) <= 85) },
       { label: 'NIHSS ≥ 6', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Window ≤ 24 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 24) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
-      { label: 'Occlusion: ICA (cervical/intracranial) / M1 (± tandem)', fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
+      { label: 'Occlusion: ICA (cervical/intracranial) / M1 (± tandem)', site: true, fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
       { label: 'Large core: ASPECTS 3–5, or core ≥ 50 mL (CTP)', fn: s => {
           const a = num(s.aspects), core = pv(s,'coreVol');
           if (a === null && core === null) return { s: 'missing' };   // enter ASPECTS to assess
@@ -922,14 +1001,14 @@ const TRIALS = [
     note: 'ASPECTS 0–2 on NCCT was excluded. Core ≥50 mL defined as RAPID rCBF <30% (CTP).'
   },
   {
-    id: 'angel', name: 'ANGEL-ASPECT', group: 'large', year: 2023, ref: REFS.angel,
+    id: 'angel', name: 'ANGEL-ASPECT', group: 'large', year: 2023, ref: REFS.angel, vessels: V_ICAM1,
     sub: '0–24 h · ICA-T/M1 · ASPECTS 3–5, or core 70–100 mL',
     criteria: [
       { label: 'Age 18–80', fn: s => chk(num(s.age) === null, num(s.age) >= 18 && num(s.age) <= 80) },
       { label: 'NIHSS 6–30', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6 && num(s.nihss) <= 30) },
       { label: 'Window ≤ 24 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 24) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
-      { label: 'Occlusion: ICA terminus / M1', fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
+      { label: 'Occlusion: ICA terminus / M1', site: true, fn: s => chk(need(s.occlusion), ['ica','m1'].includes(s.occlusion)) },
       { label: 'Core: ASPECTS 3–5, or core 70–100 mL if ASPECTS 0–2 or >5 (6–24 h)', fn: s => {
           const a = num(s.aspects), core = pv(s,'coreVol'), t = num(s.lkw);
           if (a === null) return { s: 'missing' };            // enter ASPECTS to assess
@@ -949,7 +1028,7 @@ const TRIALS = [
  
   // ================== POSTERIOR CIRCULATION (BASILAR) ==================
   {
-    id: 'attention', name: 'ATTENTION', group: 'posterior', year: 2022, ref: REFS.attention,
+    id: 'attention', name: 'ATTENTION', group: 'posterior', year: 2022, ref: REFS.attention, vessels: V_POST,
     sub: '≤ 12 h · basilar · pc-ASPECTS ≥6 (≥8 if >80)',
     criteria: [
       { label: 'Age ≥ 18', fn: s => chk(num(s.age) === null, num(s.age) >= 18) },
@@ -960,7 +1039,7 @@ const TRIALS = [
           if (m === null || age === null) return { s: 'missing' };
           return { s: (age > 80 ? m === 0 : m <= 2) ? 'pass' : 'fail' };
         } },
-      { label: 'Occlusion: basilar artery', fn: s => chk(need(s.occlusion), s.occlusion === 'basilar') },
+      { label: 'Occlusion: basilar artery', site: true, fn: s => chk(need(s.occlusion), s.occlusion === 'basilar') },
       { label: 'pc-ASPECTS ≥ 6 (≥8 if age >80)', fn: s => {
           const p = num(s.pcaspects), age = num(s.age);
           if (p === null) return { s: 'missing' };
@@ -973,14 +1052,14 @@ const TRIALS = [
     note: 'No upper age limit (patients >80 needed pc-ASPECTS ≥8 and pre-stroke mRS 0). No perfusion required. Excludes extensive/complete bilateral brainstem infarction.'
   },
   {
-    id: 'baoche', name: 'BAOCHE', group: 'posterior', year: 2022, ref: REFS.baoche,
+    id: 'baoche', name: 'BAOCHE', group: 'posterior', year: 2022, ref: REFS.baoche, vessels: V_POST,
     sub: '6–24 h · basilar · pc-ASPECTS ≥6',
     criteria: [
       { label: 'Age 18–80', fn: s => chk(num(s.age) === null, num(s.age) >= 18 && num(s.age) <= 80) },
       { label: 'NIHSS ≥ 6', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Window 6–24 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) >= 6 && num(s.lkw) <= 24) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
-      { label: 'Occlusion: basilar artery', fn: s => chk(need(s.occlusion), s.occlusion === 'basilar') },
+      { label: 'Occlusion: basilar artery', site: true, fn: s => chk(need(s.occlusion), s.occlusion === 'basilar') },
       { label: 'pc-ASPECTS ≥ 6', fn: s => chk(num(s.pcaspects) === null, num(s.pcaspects) >= 6) },
       { label: 'Pons–midbrain index ≤ 2 (extensive brainstem infarct excluded)', fn: s => chk(num(s.pmi) === null, num(s.pmi) <= 2) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
@@ -990,7 +1069,7 @@ const TRIALS = [
  
   // ================== MEDIUM / DISTAL VESSEL OCCLUSION (MeVO) ==================
   {
-    id: 'oriental', name: 'ORIENTAL-MeVO', group: 'mevo', year: 2026, ref: REFS.oriental, result: 'positive',
+    id: 'oriental', name: 'ORIENTAL-MeVO', group: 'mevo', year: 2026, ref: REFS.oriental, result: 'positive', vessels: V_MEVO,
     sub: '≤ 24 h · co/non-dominant M2, M3, ACA, PCA',
     resultNote: 'POSITIVE trial — mRS 0–2 58.6% vs 46.6% (adjusted RR 1.24, p=0.004); sICH 4.7% vs 2.2%. EVT improved outcomes in selected MeVO.',
     criteria: [
@@ -998,14 +1077,19 @@ const TRIALS = [
       { label: 'NIHSS ≥ 6', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Window ≤ 24 h from onset / last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 24) },
       { label: 'Pre-stroke mRS 0–2', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 2) },
-      { label: 'Occlusion: co/non-dominant M2, M3, A1–A3, P1–P3', fn: s => chk(need(s.occlusion), ['m2dist','m3','aca','pca'].includes(s.occlusion)) },
+      { label: 'Occlusion: co-/non-dominant M2 (trunk ≤2.0 mm), M3, A1–A3, P1–P3', site: true, fn: s => {
+          if (need(s.occlusion)) return { s: 'missing' };
+          if (['m3','aca','pca'].includes(s.occlusion)) return { s: 'pass' };
+          if (isM2(s)) return orientalM2(s);
+          return { s: 'fail' };
+        } },
       { label: 'Single territory (no multi/bilateral occlusion)', fn: s => chk(need(s.multiOcc), s.multiOcc === 'no') },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
-    note: 'The one POSITIVE MeVO trial — selective enrollment (NIHSS ≥6, larger MeVO territory). >6 h required mismatch (core <50% of the clinically relevant territory, or CTP mismatch >10 mL and ratio >1.4) — assess separately.'
+    note: 'The one POSITIVE MeVO trial — selective enrollment (NIHSS ≥6, larger MeVO territory). M2 eligibility was defined by vessel diameter ≤2.0 mm (co-/non-dominant); dominant M2 was excluded by that cap. >6 h required mismatch (core <50% of the clinically relevant territory, or CTP mismatch >10 mL and ratio >1.4) — assess separately.'
   },
   {
-    id: 'escapemevo', name: 'ESCAPE-MeVO', group: 'mevo', year: 2025, ref: REFS.escapemevo, result: 'negative',
+    id: 'escapemevo', name: 'ESCAPE-MeVO', group: 'mevo', year: 2025, ref: REFS.escapemevo, result: 'negative', vessels: V_MEVO,
     sub: '≤ 12 h · M2–M3 / A2–A3 / P2–P3',
     resultNote: 'NEGATIVE trial — mRS 0–1 41.6% vs 43.1% (no benefit); excess sICH (5.4% vs 2.2%) and mortality. EVT was not beneficial.',
     criteria: [
@@ -1013,14 +1097,14 @@ const TRIALS = [
       { label: 'NIHSS ≥ 6 (or 3–5 if disabling)', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Window ≤ 12 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 12) },
       { label: 'Pre-stroke independent (mRS 0–2)', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 2) },
-      { label: 'Occlusion: M2, M3, A2–A3, P2–P3 (MeVO)', fn: s => chk(need(s.occlusion), ['m2prox','m2dist','m3','aca','pca'].includes(s.occlusion)) },
+      { label: 'Occlusion: M2 (any segment), M3, A2–A3, P2–P3 (MeVO)', site: true, fn: s => chk(need(s.occlusion), ['m2','m3','aca','pca'].includes(s.occlusion)) },
       { label: 'ASPECTS > 5', fn: s => chk(num(s.aspects) === null, num(s.aspects) > 5) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
     note: 'Enrolled primary MeVOs with disabling deficit. Trial was NEGATIVE — meeting these enrollment criteria does not indicate benefit.'
   },
   {
-    id: 'distal', name: 'DISTAL', group: 'mevo', year: 2025, ref: REFS.distal, result: 'negative',
+    id: 'distal', name: 'DISTAL', group: 'mevo', year: 2025, ref: REFS.distal, result: 'negative', vessels: V_MEVO,
     sub: '≤ 6 h (–24 h w/ mismatch) · M2–M4 / ACA / PCA',
     resultNote: 'NEUTRAL/NEGATIVE — 90-day mRS shift common OR 0.90 (0.67–1.22); excess sICH (5.9% vs 2.6%). No benefit over medical therapy.',
     criteria: [
@@ -1028,13 +1112,18 @@ const TRIALS = [
       { label: 'NIHSS ≥ 4 (or clearly disabling)', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 4) },
       { label: 'Window ≤ 6 h, or 6–24 h with imaging mismatch', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 24) },
       { label: 'Not bedridden (pre-stroke mRS 0–2)', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 2) },
-      { label: 'Isolated MeVO: co/non-dominant M2, M3–M4, ACA, PCA', fn: s => chk(need(s.occlusion), ['m2dist','m3','aca','pca'].includes(s.occlusion)) },
+      { label: 'Isolated MeVO: co-/non-dominant M2 (<50% MCA territory), M3–M4, ACA, PCA', site: true, fn: s => {
+          if (need(s.occlusion)) return { s: 'missing' };
+          if (['m3','aca','pca'].includes(s.occlusion)) return { s: 'pass' };
+          if (isM2(s)) return distalM2(s);
+          return { s: 'fail' };
+        } },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
-    note: 'The 6–24 h window required CT hypoperfusion–hypodensity or DWI–FLAIR mismatch. Trial was NEGATIVE.'
+    note: 'Co-/non-dominant M2 was left to site judgment (HERMES convention: <50% of the MCA territory); EVTcalc accepts trunk diameter ≤2.0 mm as a surrogate when dominance is not stated. The 6–24 h window required CT hypoperfusion–hypodensity or DWI–FLAIR mismatch. Trial was NEGATIVE.'
   },
   {
-    id: 'discount', name: 'DISCOUNT', group: 'mevo', year: 2026, ref: REFS.discount, result: 'negative',
+    id: 'discount', name: 'DISCOUNT', group: 'mevo', year: 2026, ref: REFS.discount, result: 'negative', vessels: V_MEVO,
     sub: '≤ 24 h · distal M2, M3, ACA, PCA · stopped early',
     resultNote: 'STOPPED EARLY for futility + harm — mRS 0–2 62% vs 68% (OR 0.73, ns); sICH 11% vs 3%. Not beneficial.',
     criteria: [
@@ -1042,7 +1131,14 @@ const TRIALS = [
       { label: 'NIHSS ≥ 5', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 5) },
       { label: 'Window ≤ 24 h from last known well (6–24 h needs advanced imaging)', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 24) },
       { label: 'Pre-stroke mRS 0–1', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 1) },
-      { label: 'Primary distal M2, M3, ACA, PCA', fn: s => chk(need(s.occlusion), ['m2dist','m3','aca','pca'].includes(s.occlusion)) },
+      { label: 'Primary distal M2 (above the insular mid-height), M3, ACA, PCA', site: true, fn: s => {
+          if (need(s.occlusion)) return { s: 'missing' };
+          if (['m3','aca','pca'].includes(s.occlusion)) return { s: 'pass' };
+          if (!isM2(s)) return { s: 'fail' };
+          const seg = m2Segment(s);
+          if (seg === null) return { s: 'missing', need: NEED_M2POS };
+          return { s: seg === 'dist' ? 'pass' : 'fail' };
+        } },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
     note: 'Enrolled out to 24 h from last known well; the 6–24 h window required advanced imaging (perfusion or diffusion mismatch) — assess separately. French trial stopped early by the DSMB for futility and excess hemorrhage. NEGATIVE.'
@@ -1050,9 +1146,13 @@ const TRIALS = [
 ];
  
 function evaluateTrial(trial, s) {
-  const rows = trial.criteria.map(c => ({ label: c.label, ...c.fn(s) }));
+  // NOT APPLICABLE: the occlusion is known and lies outside the vascular territory this trial studied.
+  const siteKnown = !need(s.occlusion);
+  const na = siteKnown && (s.occlusion === 'none' || s.occlusion === 'other' || (trial.vessels && !trial.vessels.includes(s.occlusion)));
+  const rows = trial.criteria.map(c => (na && c.site) ? { label: c.label, site: true, s: 'na' } : { label: c.label, site: !!c.site, ...c.fn(s) });
   let verdict;
-  if (rows.some(r => r.s === 'fail')) verdict = 'nogo';
+  if (na) verdict = 'na';
+  else if (rows.some(r => r.s === 'fail')) verdict = 'nogo';
   else if (rows.some(r => r.s === 'missing')) verdict = 'unk';
   else verdict = 'go';
   return { verdict, rows };
@@ -1064,8 +1164,8 @@ function evaluateAll(s) {
 /* ================= LOGIC-END ================= */
  
 // ---- UI wiring ---------------------------------------------------------
-const segIds = ['tpa','hemorrhage','massEffect','multiOcc','perfDone','m2equiv'];
-const numIds = ['age','nihss','lkw','aspects','pcaspects','coreVol','mmRatio','pmi'];
+const segIds = ['tpa','hemorrhage','massEffect','multiOcc','perfDone','m2dom','m2pos'];
+const numIds = ['age','nihss','lkw','aspects','pcaspects','coreVol','mmRatio','pmi','m2diam'];
 const selIds = ['mrs','occlusion'];
 const state = {};
  
@@ -1096,8 +1196,7 @@ function updateConditionalFields() {
   document.getElementById('pcAspectsField').style.display = basilar ? 'block' : 'none';
   document.getElementById('pmiField').style.display = basilar ? 'block' : 'none';
   document.getElementById('aspectsField').style.display = basilar ? 'none' : 'block';
-  document.getElementById('m2equivField').style.display =
-    (state.occlusion === 'm2prox' || state.occlusion === 'm2dist') ? 'block' : 'none';
+  document.getElementById('m2Block').style.display = state.occlusion === 'm2' ? 'flex' : 'none';
 }
 function readInputs() {
   numIds.forEach(id => { state[id] = document.getElementById(id).value; });
@@ -1105,7 +1204,7 @@ function readInputs() {
 }
  
 // Flag physiologically-impossible numeric entries (typo guard) without altering them.
-const NUM_RANGES = { age:[0,120], nihss:[0,42], lkw:[0,120], aspects:[0,10], pcaspects:[0,10], coreVol:[0,400], mmRatio:[0,50], pmi:[0,6] };
+const NUM_RANGES = { age:[0,120], nihss:[0,42], lkw:[0,120], aspects:[0,10], pcaspects:[0,10], coreVol:[0,400], mmRatio:[0,50], pmi:[0,6], m2diam:[0,6] };
 function validateInputs() {
   let bad = 0;
   for (const id in NUM_RANGES) {
@@ -1126,12 +1225,14 @@ const GROUPS = [
   { key: 'posterior', title: 'Posterior circulation (basilar)', sub: 'ATTENTION · BAOCHE' },
   { key: 'mevo', title: 'Medium / distal vessel occlusion (MeVO)', sub: 'ORIENTAL-MeVO (positive) · ESCAPE-MeVO · DISTAL · DISCOUNT (negative)' },
 ];
-const BADGE = { go: 'MEETS CRITERIA', nogo: 'NOT ELIGIBLE', unk: 'INSUFFICIENT DATA' };
-const MARK = { pass: '✓', fail: '✗', missing: '·' };
+const BADGE = { go: 'MEETS CRITERIA', nogo: 'NOT ELIGIBLE', unk: 'INSUFFICIENT DATA', na: 'NOT APPLICABLE' };
+const MARK = { pass: '✓', fail: '✗', missing: '·', na: '—' };
  
 // Map a missing criterion's label to the concise data the clinician must obtain.
 function needFor(label) {
+  if (label && typeof label === 'object') { if (label.need) return label.need; if (label.site) return 'occlusion site'; label = label.label; }
   const l = label.toLowerCase();
+  if (l.includes('dominan') && !l.includes('occlusion')) return NEED_M2;
   if (l.includes('core') || l.includes('mismatch') || l.includes('rapid') || l.includes('perfusion')) return 'CT perfusion (core volume / mismatch)';
   if (l.includes('pc-aspects')) return 'pc-ASPECTS';
   if (l.includes('aspects')) return 'ASPECTS';
@@ -1148,14 +1249,14 @@ function needFor(label) {
 }
 function needsList(rows) {
   const set = [];
-  rows.filter(r => r.s === 'missing').forEach(r => { const n = needFor(r.label); if (n && !set.includes(n)) set.push(n); });
+  rows.filter(r => r.s === 'missing').forEach(r => { const n = needFor(r); if (n && !set.includes(n)) set.push(n); });
   return set;
 }
  
 function buildTrialCard(r) {
-  const applicable = r.verdict !== 'nogo';           // meets criteria OR insufficient data
+  const applicable = r.verdict === 'go' || r.verdict === 'unk';   // meets criteria OR insufficient data
   const card = document.createElement('details');
-  card.className = 'trial' + (r.verdict === 'go' ? ' applic' : '') + (r._near ? ' nearmiss' : '');
+  card.className = 'trial' + (r.verdict === 'go' ? ' applic' : '') + (r._near ? ' nearmiss' : '') + (r.verdict === 'na' ? ' isna' : '');
   if (applicable) card.open = true;                  // expand only applicable trials
   const rowsHtml = r.rows.map(row =>
     '<li class="' + row.s + '"><span class="mark">' + MARK[row.s] + '</span><span class="ctext">' + row.label + '</span></li>'
@@ -1170,6 +1271,7 @@ function buildTrialCard(r) {
         '</span>' +
         '<span class="tsub">' + r.trial.sub + '</span>' +
         failLabels.map(l => '<span class="treason">✗ ' + l + '</span>').join('') +
+        (r.verdict === 'na' ? '<span class="tsub" style="color:var(--na)">— Occlusion site outside the territory this trial studied</span>' : '') +
         (r._near ? '<span class="near-chip">◐ 1 criterion away</span>' : '') +
         (needs.length ? '<span class="tneeds">Needs: ' + needs.join(', ') + '</span>' : '') +
       '</span>' +
@@ -1188,8 +1290,9 @@ function render() {
   updateConditionalFields();
   const badInputs = validateInputs();
   const results = evaluateAll(state);
-  const counts = { go: 0, nogo: 0, unk: 0 };
+  const counts = { go: 0, nogo: 0, unk: 0, na: 0 };
   results.forEach(r => counts[r.verdict]++);
+  const applicableN = results.length - counts.na;
   // ---- per-trial fail / near-miss analysis ----
   results.forEach(r => {
     r._fails = r.rows.filter(x => x.s === 'fail');
@@ -1197,13 +1300,13 @@ function render() {
     // near-miss = fails exactly one criterion (all data present) AND that criterion is a
     // tweakable threshold, not a categorical occlusion-site mismatch.
     r._near  = r.verdict === 'nogo' && r._fails.length === 1 && r._miss.length === 0
-               && needFor(r._fails[0].label) !== 'occlusion site';
+               && !r._fails[0].site && needFor(r._fails[0]) !== 'occlusion site';
   });
   const nearMisses = results.filter(r => r._near);
   const barrierCount = {};
   results.filter(r => r.verdict === 'nogo').forEach(r => {
     const cats = new Set();
-    r._fails.forEach(f => cats.add(needFor(f.label) || 'other criteria'));
+    r._fails.forEach(f => cats.add(needFor(f) || 'other criteria'));
     cats.forEach(c => barrierCount[c] = (barrierCount[c] || 0) + 1);
   });
   const topBarriers = Object.entries(barrierCount).sort((a,b)=>b[1]-a[1]);
@@ -1211,27 +1314,33 @@ function render() {
   // Positive-evidence trials vs negative/neutral trials (MeVO) met
   const goPos = results.filter(r => r.verdict === 'go' && r.trial.result !== 'negative').map(r => r.trial.name);
   const goNeg = results.filter(r => r.verdict === 'go' && r.trial.result === 'negative').map(r => r.trial.name);
-  const anyData = counts.nogo > 0 || counts.go > 0;   // near-empty form => everything unk, nogo 0
+  const anyData = counts.nogo > 0 || counts.go > 0 || counts.na > 0;   // near-empty form => everything unk
   const allNeeds = [];
   results.filter(r => r.verdict === 'unk').forEach(r => needsList(r.rows).forEach(n => { if (!allNeeds.includes(n)) allNeeds.push(n); }));
   let headline, sub, isgo = false;
+  const naBit = counts.na > 0 ? counts.na + ' not applicable to this occlusion site' : '';
   if (!anyData) {
     headline = 'Enter patient data to assess eligibility'; sub = '';
+  } else if (counts.na === results.length) {
+    headline = state.occlusion === 'none' ? 'No intracranial occlusion — the thrombectomy trials do not apply' : 'No trial studied this occlusion site';
+    sub = state.occlusion === 'none' ? 'All 16 trials required a target occlusion on CTA.' : 'The 16 trials enrolled ICA, M1, M2, M3, ACA, PCA, and basilar occlusions only.';
   } else if (goPos.length) {
     isgo = true;
     headline = 'Meets criteria for ' + goPos.join(', ');
-    const bits = ['not eligible for ' + counts.nogo + ' trial' + (counts.nogo !== 1 ? 's' : '')];
+    const bits = [];
+    if (counts.nogo > 0) bits.push('not eligible for ' + counts.nogo + ' trial' + (counts.nogo !== 1 ? 's' : ''));
     if (counts.unk > 0) bits.push(counts.unk + ' pending' + (allNeeds.length ? ' (need ' + allNeeds.slice(0,2).join(', ') + ')' : ''));
-    sub = 'Otherwise ' + bits.join('; ') + '.';
+    if (naBit) bits.push(naBit);
+    sub = bits.length ? 'Otherwise ' + bits.join('; ') + '.' : '';
   } else if (goNeg.length) {
     isgo = false;
     headline = 'Fits enrollment only for MeVO trials that showed no benefit';
     sub = goNeg.join(', ') + ' — negative/neutral trials (excess hemorrhage); meeting criteria does not indicate benefit.';
   } else if (counts.unk > 0) {
     headline = 'No trial fully met — ' + counts.unk + ' pending more data';
-    sub = allNeeds.length ? 'Need: ' + allNeeds.slice(0,3).join(', ') + '.' : '';
+    sub = (allNeeds.length ? 'Need: ' + allNeeds.slice(0,3).join(', ') + '.' : '') + (naBit ? ' ' + naBit.charAt(0).toUpperCase() + naBit.slice(1) + '.' : '');
   } else {
-    headline = 'Does not meet criteria for any of the ' + results.length + ' trials'; sub = '';
+    headline = 'Does not meet criteria for any of the ' + applicableN + ' applicable trial' + (applicableN !== 1 ? 's' : ''); sub = naBit ? naBit.charAt(0).toUpperCase() + naBit.slice(1) + '.' : '';
   }
   const negLine = (goPos.length && goNeg.length)
     ? '<div class="synth-barrier" style="color:var(--nogo)">⚠ Also fits negative/neutral MeVO trials: ' + goNeg.join(', ') + ' (no benefit shown).</div>'
@@ -1260,6 +1369,7 @@ function render() {
       '<span><b class="go">' + counts.go + '</b> meets</span>' +
       '<span><b class="nogo">' + counts.nogo + '</b> not eligible</span>' +
       '<span><b class="unk">' + counts.unk + '</b> insufficient</span>' +
+      (counts.na > 0 ? '<span><b class="na">' + counts.na + '</b> not applicable</span>' : '') +
       (badInputs > 0 ? '<span class="summary-warn">⚠ ' + badInputs + ' out of range</span>' : '') +
     '</div>';
  
@@ -1267,12 +1377,12 @@ function render() {
   container.innerHTML = '';
  
   if (!anyData) {
-    container.innerHTML = '<div class="results-empty"><div class="re-title">Enter the patient details on the left to see which trials apply</div>' + '<div class="results-empty-steps">' + '<div><b>1</b><span>Paste a vignette or fill in the clinical, CT, and CTA fields</span></div>' + '<div><b>2</b><span>Every trial is scored criterion by criterion: pass, fail, or missing</span></div>' + '<div><b>3</b><span>See which trials the patient meets, and exactly which datum would change the answer</span></div>' + '</div></div>';
+    container.innerHTML = '<div class="results-empty"><div class="re-title">Enter the patient details on the left to see which trials apply</div>' + '<div class="results-empty-steps">' + '<div><b>1</b><span>Paste a vignette or fill in the clinical, CT, and CTA fields</span></div>' + '<div><b>2</b><span>Every trial is scored criterion by criterion: pass, fail, or missing; trials for other vascular territories are set aside as not applicable</span></div>' + '<div><b>3</b><span>See which trials the patient meets, and exactly which datum would change the answer</span></div>' + '</div></div>';
     return;
   }
  
   // "In play" = meets criteria, insufficient data, or a near-miss. Plain not-eligible trials are tucked away.
-  const inPlay = t => t.verdict !== 'nogo' || t._near;
+  const inPlay = t => t.verdict === 'go' || t.verdict === 'unk' || t._near;
   GROUPS.forEach(g => {
     const groupResults = results.filter(t => t.trial.group === g.key && inPlay(t));
     if (!groupResults.length) return;
@@ -1286,8 +1396,8 @@ function render() {
     container.appendChild(grid);
   });
  
-  // Collapsed "does not meet" section for the rest.
-  const others = results.filter(t => !inPlay(t));
+  // Collapsed "does not meet" section, then a grey "not applicable" section.
+  const others = results.filter(t => !inPlay(t) && t.verdict !== 'na');
   if (others.length) {
     const det = document.createElement('details');
     det.className = 'others';
@@ -1295,6 +1405,17 @@ function render() {
     const grid = document.createElement('div');
     grid.className = 'grid others-grid';
     others.forEach(t => grid.appendChild(buildTrialCard(t)));
+    det.appendChild(grid);
+    container.appendChild(det);
+  }
+  const nas = results.filter(t => t.verdict === 'na');
+  if (nas.length) {
+    const det = document.createElement('details');
+    det.className = 'others na-group';
+    det.innerHTML = '<summary><span class="chev">▸</span>' + nas.length + ' trial' + (nas.length !== 1 ? 's' : '') + ' not applicable to this occlusion site (' + nas.map(t => t.trial.name).join(', ') + ')</summary>';
+    const grid = document.createElement('div');
+    grid.className = 'grid others-grid';
+    nas.forEach(t => grid.appendChild(buildTrialCard(t)));
     det.appendChild(grid);
     container.appendChild(det);
   }
@@ -1452,6 +1573,8 @@ function applyHash() {
   const p = new URLSearchParams(h);
   numIds.forEach(id=>{ if(p.has(id)) document.getElementById(id).value = p.get(id); });
   selIds.forEach(id=>{ if(p.has(id)) document.getElementById(id).value = p.get(id); });
+  const oc = p.get('occlusion'); if (oc === 'm2prox' || oc === 'm2dist') { document.getElementById('occlusion').value = 'm2'; setSeg('m2pos', oc === 'm2prox' ? 'prox' : 'dist'); }
+  if (p.get('m2equiv') === 'yes') setSeg('m2dom', 'multi');
   segIds.forEach(id=>{ if(p.has(id)) setSeg(id,p.get(id)); });
   togglePerf();
 }
@@ -1478,11 +1601,11 @@ const VIG_FIELDS = {
   mrs:{label:'Pre-stroke mRS', kind:'sel'}, tpa:{label:'IV thrombolytic', kind:'seg'}, hemorrhage:{label:'Intracranial hemorrhage', kind:'seg'},
   aspects:{label:'ASPECTS', kind:'num'}, pcaspects:{label:'pc-ASPECTS', kind:'num'}, pmi:{label:'Pons–midbrain index', kind:'num'},
   massEffect:{label:'Mass effect / midline shift', kind:'seg'}, occlusion:{label:'Occlusion site', kind:'sel'}, multiOcc:{label:'Multi-territory occlusion', kind:'seg'},
-  m2equiv:{label:'≥2 M2 branches (M1-equivalent)', kind:'seg'}, perfDone:{label:'CT perfusion obtained', kind:'seg'}, coreVol:{label:'Core volume (mL)', kind:'num'}, mmRatio:{label:'Mismatch ratio', kind:'num'},
+  m2dom:{label:'M2 trunk', kind:'seg'}, m2pos:{label:'M2 segment', kind:'seg'}, m2diam:{label:'M2 trunk diameter (mm)', kind:'num'}, perfDone:{label:'CT perfusion obtained', kind:'seg'}, coreVol:{label:'Core volume (mL)', kind:'num'}, mmRatio:{label:'Mismatch ratio', kind:'num'},
 };
 const VIG_EXAMPLES = [
   '68-year-old man with atrial fibrillation on apixaban, last known well at 21:30, arrived at 03:10 with right hemiparesis and aphasia, NIHSS 17. Baseline mRS 0, lives independently. Not a candidate for thrombolysis given anticoagulation. Non-contrast head CT shows no hemorrhage, ASPECTS 7, no midline shift. CTA demonstrates a left M1 occlusion without tandem lesion. CT perfusion: CBF<30% core 22 mL, Tmax>6s 118 mL, mismatch ratio 5.4.',
-  '81F, LKW 3 h, NIHSS 9, pre-stroke mRS 3 (walks with a walker, needs help with ADLs). Received IV tenecteplase. NCCT: no ICH, ASPECTS 9. CTA: proximal right M2 (dominant division) occlusion. No CTP performed.',
+  '81F, LKW 3 h, NIHSS 9, pre-stroke mRS 3 (walks with a walker, needs help with ADLs). Received IV tenecteplase. NCCT: no ICH, ASPECTS 9. CTA: proximal right M2 (dominant division) occlusion, no other occlusion. No CTP performed.',
   '55-year-old woman found down, last seen normal approximately 14 hours ago. NIHSS 24, GCS 8. mRS 0 at baseline. tPA not given (outside window). CT: early hypodensity, ASPECTS 4, no hemorrhage, no herniation. CTA shows carotid terminus occlusion on the left. RAPID: ischemic core 92 mL, hypoperfusion 140 mL.',
   '47M with sudden vertigo, dysarthria and decreasing consciousness; symptom onset 5 hours prior to arrival. NIHSS 18. No prior deficits. CT head negative for hemorrhage, pc-ASPECTS 8. CTA: mid-basilar occlusion. Received alteplase at the outside hospital.',
 ];
@@ -1608,13 +1731,11 @@ function vigExtract(raw) {
   const tries = [
     [/\b(basilar|ba\b|vertebrobasilar|top[- ]of[- ]the[- ]basilar)/i, 'basilar'],
     [/\b(?:carotid\s+(?:t|terminus|t-?occlusion)|ica\s+(?:terminus|t\b)|t[- ]occlusion|terminal\s+ica|intracranial\s+ica|distal\s+ica|(?:right|left|r|l)\s+ica\b|\bica\s+occlusion|internal\s+carotid\s+(?:artery\s+)?(?:occlusion|terminus))/i, 'ica'],
-    [/\b(?:proximal|dominant|trunk|m2\s+(?:trunk|origin)|proximal\s+m2|m2\s+proximal|superior\s+division|inferior\s+division|dominant\s+(?:m2|division))\b[^.;]{0,20}\bm2\b|\bm2\b[^.;]{0,25}\b(?:proximal|dominant|trunk|superior\s+division|inferior\s+division|origin)/i, 'm2prox'],
-    [/\b(?:distal|non-?dominant|co-?dominant|small|minor)\b[^.;]{0,15}\bm2\b|\bm2\b[^.;]{0,25}\b(?:distal|non-?dominant|co-?dominant|small\s+branch)/i, 'm2dist'],
+    [/\bm2\b/i, 'm2'],
     [/\bm1\b|\bm1\s+segment|\bproximal\s+mca\b|\bmca\s+(?:trunk|stem)\b|\bmiddle\s+cerebral\s+artery\s+(?:occlusion|m1)/i, 'm1'],
     [/\bm3\b|\bm4\b/i, 'm3'],
     [/\b(?:a2|a3)\b|\baca\b|\banterior\s+cerebral\b/i, 'aca'],
     [/\b(?:p2|p3)\b|\bpca\b|\bposterior\s+cerebral\b/i, 'pca'],
-    [/\bm2\b/i, 'm2prox'],
   ];
   for (const [re, code] of tries) {
     const m = re.exec(text);
@@ -1623,7 +1744,6 @@ function vigExtract(raw) {
       const before = text.slice(Math.max(0, m.index - 20), m.index).toLowerCase();
       if (/\b(no|without|patent|recanalized)\s*$/.test(before)) continue;
       occ = code; occSpan = [m.index, m.index + m[0].length];
-      if (code === 'm2prox' && re === tries[tries.length - 1][0]) { occConf = 'inferred'; occNote = 'M2 mentioned without proximal/distal or dominance; set to proximal M2. Verify.'; }
       break;
     }
   }
@@ -1639,11 +1759,15 @@ function vigExtract(raw) {
     else add('multiOcc', 'no', 'inferred', occSpan, 'one occlusion described and no mention of bilateral/multi-territory disease; assumed single territory');
   }
 
-  // ---- ≥2 M2 branches (ESCAPE M1-equivalent) ----
-  if (occ === 'm2prox' || occ === 'm2dist') {
-    f = vigFind(text, /\b(?:two|2|both|multiple|≥\s*2|>=\s*2)\s+m2\s+(?:branches|divisions)|m1[- ]equivalent|both\s+(?:superior\s+and\s+inferior\s+)?divisions/i);
-    if (f) add('m2equiv', 'yes', 'found', f.whole);
-    else { f = vigFind(text, /\b(?:single|one|isolated|solitary)\s+m2\s+(?:branch|division)|(?:superior|inferior)\s+division\s+only/i); if (f) add('m2equiv', 'no', 'found', f.whole); }
+  // ---- M2 trunk type, segment, diameter ----
+  if (occ === 'm2') {
+    f = vigFind(text, /\b((?:non-?|co-?)?dominant)\b[^.;]{0,25}?\b(?:m2|division|branch|trunk)\b|\b(?:m2|division|branch|trunk)\b[^.;]{0,25}?\b((?:non-?|co-?)?dominant)\b/i);
+    if (f) { const w = (f.m[1] || f.m[2] || '').toLowerCase().replace(/-/g, ''); add('m2dom', w.startsWith('non') ? 'nondom' : w.startsWith('co') ? 'codom' : 'dominant', 'found', f.whole); }
+    else { f = vigFind(text, /\b(?:two|2|both|multiple|≥\s*2|>=\s*2)\s+m2\s+(?:branches|divisions)|m1[- ]equivalent|both\s+(?:superior\s+and\s+inferior\s+)?divisions/i); if (f) add('m2dom', 'multi', 'found', f.whole); }
+    f = vigFind(text, /\b(proximal|distal)\b[^.;]{0,15}?\bm2\b|\bm2\b[^.;]{0,20}?\b(proximal|distal)\b/i);
+    if (f) add('m2pos', (f.m[1] || f.m[2]).toLowerCase() === 'distal' ? 'dist' : 'prox', 'found', f.whole);
+    f = vigFind(text, /\b(?:m2|trunk|vessel|branch)[^.;\d]{0,30}(\d(?:\.\d+)?)\s*mm\b|(\d(?:\.\d+)?)\s*mm\b[^.;]{0,20}\b(?:m2|trunk|vessel|branch)/i);
+    if (f) { const v = vigNum(f.m[1] || f.m[2]); if (v > 0 && v <= 6) add('m2diam', v, 'found', f.whole); }
   }
 
   // ---- perfusion ----
@@ -1688,12 +1812,12 @@ function vigRequiredMissing(ext) {
   const need = {};
   results.forEach(r => {
     if (r.verdict !== 'unk') return;
-    r.rows.filter(x => x.s === 'missing').forEach(x => { const n = needFor(x.label); if (!n) return; (need[n] = need[n] || new Set()).add(r.trial.name); });
+    r.rows.filter(x => x.s === 'missing').forEach(x => { const n = needFor(x); if (!n) return; (need[n] = need[n] || new Set()).add(r.trial.name); });
   });
   return need;
 }
 const NEED_TO_FIELDS = { 'CT perfusion (core volume / mismatch)': ['perfDone','coreVol','mmRatio'], 'pc-ASPECTS': ['pcaspects'], 'ASPECTS': ['aspects'], 'hemorrhage status': ['hemorrhage'],
-  'mass-effect / midline shift': ['massEffect'], 'IV thrombolytic status': ['tpa'], 'pre-stroke mRS': ['mrs'], 'occlusion site': ['occlusion'], 'multi-territory occlusion status': ['multiOcc'], 'NIHSS': ['nihss'], 'age': ['age'], 'time from last known well': ['lkw'] };
+  'mass-effect / midline shift': ['massEffect'], 'IV thrombolytic status': ['tpa'], 'pre-stroke mRS': ['mrs'], 'occlusion site': ['occlusion'], 'multi-territory occlusion status': ['multiOcc'], 'NIHSS': ['nihss'], 'age': ['age'], 'time from last known well': ['lkw'], 'M2 trunk type / diameter': ['m2dom','m2diam'], 'M2 segment (proximal / distal)': ['m2pos'] };
 
 function vigApply() {
   const raw = document.getElementById('vigText').value.trim();
@@ -1721,12 +1845,14 @@ function vigApply() {
   // perfusion sub-fields only matter when perfDone is yes or unknown
   if (state.perfDone === 'no') { missingFields.delete('coreVol'); missingFields.delete('mmRatio'); }
   if (state.occlusion !== 'basilar') { missingFields.delete('pcaspects'); missingFields.delete('pmi'); } else { missingFields.delete('aspects'); }
+  if (state.occlusion !== 'm2') { missingFields.delete('m2dom'); missingFields.delete('m2diam'); missingFields.delete('m2pos'); }
+  else if (missingFields.has('m2dom') && missingFields.has('m2diam')) { missingFields.delete('m2diam'); }  // one of the two suffices; ask for trunk type
   missingFields.forEach(fid => tagField(fid, 'auto-missing', 'not found'));
   vigApplied = { ext, missing: [...missingFields], raw };
   document.getElementById('vigClear').style.display = '';
   // summary
   const found = Object.entries(ext).filter(([, v]) => v.conf === 'found'), inf = Object.entries(ext).filter(([, v]) => v.conf === 'inferred');
-  const disp = (k, v) => { let val = v.value; if (k === 'occlusion') val = ({ica:'ICA',m1:'M1',m2prox:'M2 proximal',m2dist:'M2 distal',m3:'M3',aca:'ACA',pca:'PCA',basilar:'basilar',other:'other',none:'none'})[val] || val; return VIG_FIELDS[k].label + ': ' + val; };
+  const disp = (k, v) => { let val = v.value; if (k === 'occlusion') val = ({ica:'ICA',m1:'M1',m2:'M2',m3:'M3',aca:'ACA',pca:'PCA',basilar:'basilar',other:'other',none:'none'})[val] || val; if (k === 'm2dom') val = ({dominant:'dominant',codom:'co-dominant',nondom:'non-dominant',multi:'≥2 branches'})[val] || val; if (k === 'm2pos') val = val === 'dist' ? 'distal' : 'proximal'; return VIG_FIELDS[k].label + ': ' + val; };
   let html = '<div class="vr-head">Filled ' + Object.keys(ext).length + ' of ' + Object.keys(VIG_FIELDS).length + ' fields' + (missingFields.size ? '; ' + missingFields.size + ' still needed' : '') + '</div>';
   html += '<div class="vig-chips">' + found.map(([k, v]) => '<span class="found" title="stated in text">' + disp(k, v) + '</span>').join('') +
     inf.map(([k, v]) => '<span class="inferred" title="' + (v.note || 'inferred') + '">' + disp(k, v) + ' (inferred)</span>').join('') + '</div>';
@@ -1772,7 +1898,7 @@ function vigApply() {
   }
   // 2. sticky bottom bar mirroring the verdict counts, with jump buttons
   const bar = document.createElement('div'); bar.className = 'mbar empty';
-  bar.innerHTML = '<div class="mb-counts"><span class="go"><b>0</b> meets</span><span class="nogo"><b>0</b> no</span><span class="unk"><b>0</b> ?</span></div><div class="mb-hint">Enter patient data below</div><button type="button" class="mb-jump">Results ↓</button>';
+  bar.innerHTML = '<div class="mb-counts"><span class="go"><b>0</b> meets</span><span class="nogo"><b>0</b> no</span><span class="unk"><b>0</b> ?</span><span class="na" style="display:none"><b>0</b> n/a</span></div><div class="mb-hint">Enter patient data below</div><button type="button" class="mb-jump">Results ↓</button>';
   document.body.appendChild(bar);
   const summary = document.getElementById('summary'); const formCol = document.querySelector('.form-col');
   const jump = bar.querySelector('.mb-jump'); const hint = bar.querySelector('.mb-hint'); const counts = bar.querySelectorAll('.mb-counts b');
@@ -1785,6 +1911,8 @@ function vigApply() {
   const sync = () => {
     const bs = summary.querySelectorAll('.synth-chips b');
     if (bs.length >= 3) { counts[0].textContent = bs[0].textContent; counts[1].textContent = bs[1].textContent; counts[2].textContent = bs[2].textContent; }
+    const naB = summary.querySelector('.synth-chips b.na'); const naSpan = bar.querySelector('.mb-counts .na');
+    if (naSpan) { naSpan.style.display = naB ? '' : 'none'; if (naB) counts[3].textContent = naB.textContent; }
     const head = summary.querySelector('.synth-headline'); const anyData = head && !/Enter patient data/i.test(head.textContent);
     bar.classList.toggle('empty', !anyData);
     hint.textContent = anyData ? head.textContent : 'Enter patient data below';

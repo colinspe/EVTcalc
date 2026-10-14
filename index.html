@@ -154,9 +154,7 @@
   .trial.isna > summary { opacity: 0.8; }
   .trial.isna .tsub { color: var(--na); }
   .others.na-group > summary { color: var(--na); }
-  .m2block { display: flex; flex-direction: column; gap: 9px; border-left: 3px solid #cfe3f6; padding-left: 12px; }
-  .m2row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; }
-  .seg.compact button { font-size: 0.8rem; padding: 7px 2px; }
+  .m2block { margin-top: -6px; }
   .m2def { margin-top: 2px; font-size: 0.78rem; color: var(--ink-soft); }
   .m2def summary { cursor: pointer; color: var(--accent-ink); font-weight: 600; }
   .m2def p { margin: 6px 0 0; line-height: 1.45; }
@@ -614,7 +612,8 @@
               <option value="m1">MCA — M1</option>
               <option value="basilar">Basilar artery</option>
             </optgroup>
-              <option value="m2">MCA — M2</option>
+              <option value="m2dom">MCA — M2, dominant (&gt;50% of MCA territory or trunk &gt;2 mm)</option>
+              <option value="m2non">MCA — M2, non-dominant or co-dominant</option>
             </optgroup>
             <optgroup label="Medium / distal vessel (MeVO)">
               <option value="m3">MCA — M3</option>
@@ -627,17 +626,9 @@
         <div class="field"><label>Bilateral strokes / multi-territory occlusions</label>
           <div class="seg" id="multiOcc" data-opts="no:No,yes:Yes,unk:Unknown"></div></div>
         <div id="m2Block" class="m2block" style="display:none;">
-          <div class="field"><label>M2 trunk <span class="hint">dominant = &gt;50% of the MCA territory</span></label>
-            <div class="seg compact" id="m2dom" data-opts="dominant:Dominant,codom:Co-dominant,nondom:Non-dominant,multi:≥2 branches,unk:Unknown"></div></div>
-          <div class="m2row">
-            <div class="field"><label>Segment <span class="hint">proximal = ≤1 cm from the bifurcation</span></label>
-              <div class="seg compact" id="m2pos" data-opts="prox:Proximal,dist:Distal"></div></div>
-            <div class="field"><label>Trunk diameter <span class="hint">mm, optional</span></label>
-              <input type="number" id="m2diam" min="0" max="6" step="0.1" placeholder="e.g. 1.8"></div>
-          </div>
           <details class="m2def"><summary>How the trials define dominant vs non-dominant M2</summary>
-            <p>There is no single definition. <b>ESCAPE-MeVO</b> and <b>DISCOUNT</b> classify M2 by position only (within or beyond 1 cm of the bifurcation; above the insular mid-height) and never use the word dominant. <b>DISTAL</b> enrolled "co-dominant or non-dominant M2" without a stated definition, leaving the call to each site. <b>ORIENTAL-MeVO</b> enrolled co-dominant or non-dominant M2 with vessel diameter ≤2.0 mm and excluded dominant M2 by that cap. The convention most readers apply comes from the HERMES M2 analysis (Menon et al. 2019): dominant if the trunk supplies more than 50% of the MCA territory, co-dominant if about half, non-dominant if less. <b>ESCAPE</b> (2015) treated an M2 as M1-equivalent when ≥2 M2 branches were occluded or a single trunk carried the majority of the MCA territory. <b>MR CLEAN</b> and <b>EXTEND-IA</b> enrolled "proximal M2" without defining it.</p>
-            <p>EVTcalc applies each trial's own rule: trunk type for DISTAL and ESCAPE (diameter ≤2.0 mm stands in for non-dominant when the trunk type is unknown); diameter for ORIENTAL-MeVO (trunk type stands in when diameter is not measured); segment for MR CLEAN, EXTEND-IA and DISCOUNT (a dominant or multi-branch occlusion is taken as proximal when the segment is not given).</p>
+            <p>There is no single definition. The convention most readers apply comes from the HERMES M2 analysis (Menon et al. 2019): dominant if the trunk supplies more than 50% of the MCA territory, co-dominant if about half, non-dominant if less. <b>ORIENTAL-MeVO</b> enrolled co-/non-dominant M2 with trunk diameter ≤2.0 mm and excluded dominant M2 by that cap. <b>DISTAL</b> enrolled "co-dominant or non-dominant M2" and left the call to each site. <b>ESCAPE-MeVO</b> and <b>DISCOUNT</b> classified M2 by position only (within or beyond 1 cm of the bifurcation; above the insular mid-height). <b>ESCAPE</b> (2015) treated an M2 as M1-equivalent when ≥2 M2 branches were occluded or a single trunk carried the majority of the territory; <b>MR CLEAN</b> and <b>EXTEND-IA</b> enrolled "proximal M2".</p>
+            <p>EVTcalc treats a dominant M2 (including ≥2 occluded M2 branches) as proximal and M1-equivalent, and a non- or co-dominant M2 as distal and ≤2.0 mm.</p>
           </details>
         </div>
       </div>
@@ -757,8 +748,7 @@ function chk(missing, cond) { return missing ? { s: 'missing' } : { s: cond ? 'p
 // age, nihss, lkw, aspects, pcaspects, coreVol, mmRatio, pmi  -> numbers or null
 // mrs -> number or null
 // tpa, hemorrhage, massEffect, multiOcc -> 'yes'|'no'|'unk'|null
-// m2dom -> 'dominant'|'codom'|'nondom'|'multi'(≥2 branches)|'unk'|null ; m2pos -> 'prox'|'dist'|'unk'|null ; m2diam -> mm or null
-// occlusion -> 'ica'|'m1'|'m2'|'m3'|'aca'|'pca'|'basilar'|'other'|'none'|null
+// occlusion -> 'ica'|'m1'|'m2dom'(dominant M2 or ≥2 M2 branches)|'m2non'(co-/non-dominant M2)|'m3'|'aca'|'pca'|'basilar'|'other'|'none'|null
 // A criterion may also return {s:'missing', need:'<datum>'} to name the datum that would resolve it.
 // perfDone -> 'yes'|'no'|null
  
@@ -785,52 +775,26 @@ const REFS = {
 function pv(s, key) { return (s.perfDone !== 'yes') ? null : num(s[key]); }
  
 // ---- M2 dominance helpers ----
-function isM2(s) { return s.occlusion === 'm2'; }
-// Working dominance: stated trunk type first (≥2 branches counts as dominant); otherwise diameter (≤2.0 mm = co-/non-dominant).
-function m2Dominance(s) {
-  if (s.m2dom === 'dominant' || s.m2dom === 'multi') return 'dominant';
-  if (s.m2dom === 'codom' || s.m2dom === 'nondom') return 'nondom';
-  const d = num(s.m2diam);
-  if (d !== null) return d <= 2.0 ? 'nondom' : 'dominant';
-  return null;
-}
-// Working segment: stated; otherwise a dominant / multi-branch occlusion is taken as proximal.
-function m2Segment(s) {
-  if (s.m2pos === 'prox' || s.m2pos === 'dist') return s.m2pos;
-  if (s.m2dom === 'dominant' || s.m2dom === 'multi') return 'prox';
-  return null;
-}
-const NEED_M2 = 'M2 trunk type / diameter';
-const NEED_M2POS = 'M2 segment (proximal / distal)';
-// Proximal-M2 trials (MR CLEAN, EXTEND-IA): ICA/M1 pass; M2 needs segment.
+function isM2(s) { return s.occlusion === 'm2dom' || s.occlusion === 'm2non'; }
+// Dominant M2 (>50% of MCA territory, trunk >2 mm, or ≥2 occluded M2 branches) is treated as proximal and M1-equivalent;
+// co-/non-dominant M2 as distal and ≤2.0 mm. See the in-page note for the trial-by-trial definitions.
+function m2Dominance(s) { return s.occlusion === 'm2dom' ? 'dominant' : s.occlusion === 'm2non' ? 'nondom' : null; }
+function m2Segment(s) { return s.occlusion === 'm2dom' ? 'prox' : s.occlusion === 'm2non' ? 'dist' : null; }
+function orientalM2(s) { return { s: m2Dominance(s) === 'nondom' ? 'pass' : 'fail' }; }
+function distalM2(s) { return { s: m2Dominance(s) === 'nondom' ? 'pass' : 'fail' }; }
+// Proximal-M2 trials (MR CLEAN, EXTEND-IA): ICA/M1 pass; dominant M2 counts as proximal.
 function proxM2Site(s, extra) {
   if (need(s.occlusion)) return { s: 'missing' };
   if ((extra || ['ica','m1']).includes(s.occlusion)) return { s: 'pass' };
   if (!isM2(s)) return { s: 'fail' };
-  const seg = m2Segment(s);
-  if (seg === null) return { s: 'missing', need: NEED_M2POS };
-  return { s: seg === 'prox' ? 'pass' : 'fail' };
-}
-// ORIENTAL-MeVO: co-/non-dominant M2 with diameter ≤2.0 mm. Diameter governs when measured; stated dominance stands in when it is not.
-function orientalM2(s) {
-  const d = num(s.m2diam);
-  if (d !== null) return { s: (d <= 2.0 && s.m2dom !== 'dominant' && s.m2dom !== 'multi') ? 'pass' : 'fail' };
-  if (s.m2dom === 'dominant' || s.m2dom === 'multi') return { s: 'fail' };
-  if (s.m2dom === 'codom' || s.m2dom === 'nondom') return { s: 'pass' };
-  return { s: 'missing', need: NEED_M2 };
-}
-// DISTAL: co-/non-dominant M2 (site judgment; <50% MCA territory). Diameter ≤2.0 mm accepted as surrogate when dominance not stated.
-function distalM2(s) {
-  const dom = m2Dominance(s);
-  if (dom === null) return { s: 'missing', need: NEED_M2 };
-  return { s: dom === 'nondom' ? 'pass' : 'fail' };
+  return { s: m2Segment(s) === 'prox' ? 'pass' : 'fail' };
 }
  
 // Vascular territory each trial studied. An occlusion outside the set makes the trial NOT APPLICABLE (grey) rather than not eligible.
 const V_ICAM1 = ['ica','m1'];                         // trials that enrolled ICA / M1 only
-const V_ANT  = ['ica','m1','m2'];                     // anterior trials that also enrolled proximal / M1-equivalent M2
+const V_ANT  = ['ica','m1','m2dom'];                  // anterior trials that also enrolled proximal / M1-equivalent M2
 const V_POST = ['basilar'];                           // basilar trials
-const V_MEVO = ['m2','m3','aca','pca'];               // medium/distal vessel trials
+const V_MEVO = ['m2dom','m2non','m3','aca','pca'];    // medium/distal vessel trials
  
 const TRIALS = [
   // ================== EARLY WINDOW ==================
@@ -859,9 +823,7 @@ const TRIALS = [
           if (['ica','m1'].includes(s.occlusion)) return { s: 'pass' };
           if (need(s.occlusion)) return { s: 'missing' };
           if (!isM2(s)) return { s: 'fail' };
-          const dom = m2Dominance(s);                              // ≥2 branches or a dominant trunk = M1-equivalent
-          if (dom === null) return { s: 'missing', need: NEED_M2 };
-          return { s: dom === 'dominant' ? 'pass' : 'fail' };
+          return { s: m2Dominance(s) === 'dominant' ? 'pass' : 'fail' };   // dominant trunk or ≥2 branches = M1-equivalent
         } },
       { label: 'ASPECTS 6–10', fn: s => chk(num(s.aspects) === null, num(s.aspects) >= 6) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
@@ -1097,7 +1059,7 @@ const TRIALS = [
       { label: 'NIHSS ≥ 6 (or 3–5 if disabling)', fn: s => chk(num(s.nihss) === null, num(s.nihss) >= 6) },
       { label: 'Window ≤ 12 h from last known well', fn: s => chk(num(s.lkw) === null, num(s.lkw) <= 12) },
       { label: 'Pre-stroke independent (mRS 0–2)', fn: s => chk(num(s.mrs) === null, num(s.mrs) <= 2) },
-      { label: 'Occlusion: M2 (any segment), M3, A2–A3, P2–P3 (MeVO)', site: true, fn: s => chk(need(s.occlusion), ['m2','m3','aca','pca'].includes(s.occlusion)) },
+      { label: 'Occlusion: M2 (any segment), M3, A2–A3, P2–P3 (MeVO)', site: true, fn: s => chk(need(s.occlusion), ['m2dom','m2non','m3','aca','pca'].includes(s.occlusion)) },
       { label: 'ASPECTS > 5', fn: s => chk(num(s.aspects) === null, num(s.aspects) > 5) },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
@@ -1135,9 +1097,7 @@ const TRIALS = [
           if (need(s.occlusion)) return { s: 'missing' };
           if (['m3','aca','pca'].includes(s.occlusion)) return { s: 'pass' };
           if (!isM2(s)) return { s: 'fail' };
-          const seg = m2Segment(s);
-          if (seg === null) return { s: 'missing', need: NEED_M2POS };
-          return { s: seg === 'dist' ? 'pass' : 'fail' };
+          return { s: m2Segment(s) === 'dist' ? 'pass' : 'fail' };
         } },
       { label: 'No intracranial hemorrhage', fn: s => chk(need(s.hemorrhage), s.hemorrhage === 'no') },
     ],
@@ -1164,8 +1124,8 @@ function evaluateAll(s) {
 /* ================= LOGIC-END ================= */
  
 // ---- UI wiring ---------------------------------------------------------
-const segIds = ['tpa','hemorrhage','massEffect','multiOcc','perfDone','m2dom','m2pos'];
-const numIds = ['age','nihss','lkw','aspects','pcaspects','coreVol','mmRatio','pmi','m2diam'];
+const segIds = ['tpa','hemorrhage','massEffect','multiOcc','perfDone'];
+const numIds = ['age','nihss','lkw','aspects','pcaspects','coreVol','mmRatio','pmi'];
 const selIds = ['mrs','occlusion'];
 const state = {};
  
@@ -1196,7 +1156,7 @@ function updateConditionalFields() {
   document.getElementById('pcAspectsField').style.display = basilar ? 'block' : 'none';
   document.getElementById('pmiField').style.display = basilar ? 'block' : 'none';
   document.getElementById('aspectsField').style.display = basilar ? 'none' : 'block';
-  document.getElementById('m2Block').style.display = state.occlusion === 'm2' ? 'flex' : 'none';
+  document.getElementById('m2Block').style.display = (state.occlusion === 'm2dom' || state.occlusion === 'm2non') ? 'block' : 'none';
 }
 function readInputs() {
   numIds.forEach(id => { state[id] = document.getElementById(id).value; });
@@ -1204,7 +1164,7 @@ function readInputs() {
 }
  
 // Flag physiologically-impossible numeric entries (typo guard) without altering them.
-const NUM_RANGES = { age:[0,120], nihss:[0,42], lkw:[0,120], aspects:[0,10], pcaspects:[0,10], coreVol:[0,400], mmRatio:[0,50], pmi:[0,6], m2diam:[0,6] };
+const NUM_RANGES = { age:[0,120], nihss:[0,42], lkw:[0,120], aspects:[0,10], pcaspects:[0,10], coreVol:[0,400], mmRatio:[0,50], pmi:[0,6] };
 function validateInputs() {
   let bad = 0;
   for (const id in NUM_RANGES) {
@@ -1232,7 +1192,6 @@ const MARK = { pass: '✓', fail: '✗', missing: '·', na: '—' };
 function needFor(label) {
   if (label && typeof label === 'object') { if (label.need) return label.need; if (label.site) return 'occlusion site'; label = label.label; }
   const l = label.toLowerCase();
-  if (l.includes('dominan') && !l.includes('occlusion')) return NEED_M2;
   if (l.includes('core') || l.includes('mismatch') || l.includes('rapid') || l.includes('perfusion')) return 'CT perfusion (core volume / mismatch)';
   if (l.includes('pc-aspects')) return 'pc-ASPECTS';
   if (l.includes('aspects')) return 'ASPECTS';
@@ -1573,8 +1532,7 @@ function applyHash() {
   const p = new URLSearchParams(h);
   numIds.forEach(id=>{ if(p.has(id)) document.getElementById(id).value = p.get(id); });
   selIds.forEach(id=>{ if(p.has(id)) document.getElementById(id).value = p.get(id); });
-  const oc = p.get('occlusion'); if (oc === 'm2prox' || oc === 'm2dist') { document.getElementById('occlusion').value = 'm2'; setSeg('m2pos', oc === 'm2prox' ? 'prox' : 'dist'); }
-  if (p.get('m2equiv') === 'yes') setSeg('m2dom', 'multi');
+  const oc = p.get('occlusion'); if (oc === 'm2prox' || oc === 'm2') document.getElementById('occlusion').value = (p.get('m2dom') === 'nondom' || p.get('m2dom') === 'codom') ? 'm2non' : 'm2dom'; if (oc === 'm2dist') document.getElementById('occlusion').value = 'm2non';
   segIds.forEach(id=>{ if(p.has(id)) setSeg(id,p.get(id)); });
   togglePerf();
 }
@@ -1601,7 +1559,7 @@ const VIG_FIELDS = {
   mrs:{label:'Pre-stroke mRS', kind:'sel'}, tpa:{label:'IV thrombolytic', kind:'seg'}, hemorrhage:{label:'Intracranial hemorrhage', kind:'seg'},
   aspects:{label:'ASPECTS', kind:'num'}, pcaspects:{label:'pc-ASPECTS', kind:'num'}, pmi:{label:'Pons–midbrain index', kind:'num'},
   massEffect:{label:'Mass effect / midline shift', kind:'seg'}, occlusion:{label:'Occlusion site', kind:'sel'}, multiOcc:{label:'Multi-territory occlusion', kind:'seg'},
-  m2dom:{label:'M2 trunk', kind:'seg'}, m2pos:{label:'M2 segment', kind:'seg'}, m2diam:{label:'M2 trunk diameter (mm)', kind:'num'}, perfDone:{label:'CT perfusion obtained', kind:'seg'}, coreVol:{label:'Core volume (mL)', kind:'num'}, mmRatio:{label:'Mismatch ratio', kind:'num'},
+  perfDone:{label:'CT perfusion obtained', kind:'seg'}, coreVol:{label:'Core volume (mL)', kind:'num'}, mmRatio:{label:'Mismatch ratio', kind:'num'},
 };
 const VIG_EXAMPLES = [
   '68-year-old man with atrial fibrillation on apixaban, last known well at 21:30, arrived at 03:10 with right hemiparesis and aphasia, NIHSS 17. Baseline mRS 0, lives independently. Not a candidate for thrombolysis given anticoagulation. Non-contrast head CT shows no hemorrhage, ASPECTS 7, no midline shift. CTA demonstrates a left M1 occlusion without tandem lesion. CT perfusion: CBF<30% core 22 mL, Tmax>6s 118 mL, mismatch ratio 5.4.',
@@ -1748,7 +1706,6 @@ function vigExtract(raw) {
     }
   }
   if (!occ && /\bno\s+(?:large\s+vessel\s+)?occlusion|no\s+lvo|cta\s+(?:negative|unremarkable|without\s+occlusion)/i.test(text)) { const m = /\bno\s+(?:large\s+vessel\s+)?occlusion|no\s+lvo|cta\s+(?:negative|unremarkable|without\s+occlusion)/i.exec(text); occ = 'none'; occSpan = [m.index, m.index + m[0].length]; }
-  if (occ) add('occlusion', occ, occConf, occSpan, occNote);
 
   // ---- multi-territory / bilateral ----
   f = vigFind(text, /\b(bilateral\s+(?:strokes?|infarcts?|occlusions?)|multi-?territory|multiple\s+territor(?:y|ies)|multiple\s+(?:vessel\s+)?occlusions|concurrent\s+(?:contralateral|posterior)|bihemispheric)\b/i);
@@ -1759,16 +1716,19 @@ function vigExtract(raw) {
     else add('multiOcc', 'no', 'inferred', occSpan, 'one occlusion described and no mention of bilateral/multi-territory disease; assumed single territory');
   }
 
-  // ---- M2 trunk type, segment, diameter ----
+  // ---- M2 dominance: resolve 'm2' into m2dom / m2non ----
   if (occ === 'm2') {
     f = vigFind(text, /\b((?:non-?|co-?)?dominant)\b[^.;]{0,25}?\b(?:m2|division|branch|trunk)\b|\b(?:m2|division|branch|trunk)\b[^.;]{0,25}?\b((?:non-?|co-?)?dominant)\b/i);
-    if (f) { const w = (f.m[1] || f.m[2] || '').toLowerCase().replace(/-/g, ''); add('m2dom', w.startsWith('non') ? 'nondom' : w.startsWith('co') ? 'codom' : 'dominant', 'found', f.whole); }
-    else { f = vigFind(text, /\b(?:two|2|both|multiple|≥\s*2|>=\s*2)\s+m2\s+(?:branches|divisions)|m1[- ]equivalent|both\s+(?:superior\s+and\s+inferior\s+)?divisions/i); if (f) add('m2dom', 'multi', 'found', f.whole); }
-    f = vigFind(text, /\b(proximal|distal)\b[^.;]{0,15}?\bm2\b|\bm2\b[^.;]{0,20}?\b(proximal|distal)\b/i);
-    if (f) add('m2pos', (f.m[1] || f.m[2]).toLowerCase() === 'distal' ? 'dist' : 'prox', 'found', f.whole);
-    f = vigFind(text, /\b(?:m2|trunk|vessel|branch)[^.;\d]{0,30}(\d(?:\.\d+)?)\s*mm\b|(\d(?:\.\d+)?)\s*mm\b[^.;]{0,20}\b(?:m2|trunk|vessel|branch)/i);
-    if (f) { const v = vigNum(f.m[1] || f.m[2]); if (v > 0 && v <= 6) add('m2diam', v, 'found', f.whole); }
+    if (f) { const w = (f.m[1] || f.m[2] || '').toLowerCase().replace(/-/g, ''); occ = (w.startsWith('non') || w.startsWith('co')) ? 'm2non' : 'm2dom'; occSpan = [Math.min(occSpan[0], f.whole[0]), Math.max(occSpan[1], f.whole[1])]; }
+    else {
+      f = vigFind(text, /\b(?:two|2|both|multiple|≥\s*2|>=\s*2)\s+m2\s+(?:branches|divisions)|m1[- ]equivalent|both\s+(?:superior\s+and\s+inferior\s+)?divisions/i);
+      if (f) { occ = 'm2dom'; occSpan = [Math.min(occSpan[0], f.whole[0]), Math.max(occSpan[1], f.whole[1])]; }
+      else { f = vigFind(text, /(\d(?:\.\d+)?)\s*mm\b/i); const d = f ? vigNum(f.m[1]) : null;
+        if (d !== null && d > 0 && d <= 6) { occ = d <= 2.0 ? 'm2non' : 'm2dom'; occConf = 'inferred'; occNote = 'dominance taken from the stated trunk diameter (' + d + ' mm; ≤2.0 mm = non-dominant)'; }
+        else { occ = 'm2dom'; occConf = 'inferred'; occNote = 'M2 mentioned without dominance; set to dominant M2. Verify.'; } }
+    }
   }
+  if (occ) add('occlusion', occ, occConf, occSpan, occNote);
 
   // ---- perfusion ----
   const perfNo = vigFind(text, /\b(?:no|without)\s+(?:ct\s*)?(?:perfusion|ctp|rapid)\b[^.;]{0,20}|(?:ctp|ct\s*perfusion|perfusion\s+imaging|rapid)\s+(?:was\s+)?(?:not\s+(?:performed|obtained|done|available|acquired)|unavailable|deferred)/i);
@@ -1817,7 +1777,7 @@ function vigRequiredMissing(ext) {
   return need;
 }
 const NEED_TO_FIELDS = { 'CT perfusion (core volume / mismatch)': ['perfDone','coreVol','mmRatio'], 'pc-ASPECTS': ['pcaspects'], 'ASPECTS': ['aspects'], 'hemorrhage status': ['hemorrhage'],
-  'mass-effect / midline shift': ['massEffect'], 'IV thrombolytic status': ['tpa'], 'pre-stroke mRS': ['mrs'], 'occlusion site': ['occlusion'], 'multi-territory occlusion status': ['multiOcc'], 'NIHSS': ['nihss'], 'age': ['age'], 'time from last known well': ['lkw'], 'M2 trunk type / diameter': ['m2dom','m2diam'], 'M2 segment (proximal / distal)': ['m2pos'] };
+  'mass-effect / midline shift': ['massEffect'], 'IV thrombolytic status': ['tpa'], 'pre-stroke mRS': ['mrs'], 'occlusion site': ['occlusion'], 'multi-territory occlusion status': ['multiOcc'], 'NIHSS': ['nihss'], 'age': ['age'], 'time from last known well': ['lkw'], };
 
 function vigApply() {
   const raw = document.getElementById('vigText').value.trim();
@@ -1845,14 +1805,12 @@ function vigApply() {
   // perfusion sub-fields only matter when perfDone is yes or unknown
   if (state.perfDone === 'no') { missingFields.delete('coreVol'); missingFields.delete('mmRatio'); }
   if (state.occlusion !== 'basilar') { missingFields.delete('pcaspects'); missingFields.delete('pmi'); } else { missingFields.delete('aspects'); }
-  if (state.occlusion !== 'm2') { missingFields.delete('m2dom'); missingFields.delete('m2diam'); missingFields.delete('m2pos'); }
-  else if (missingFields.has('m2dom') && missingFields.has('m2diam')) { missingFields.delete('m2diam'); }  // one of the two suffices; ask for trunk type
   missingFields.forEach(fid => tagField(fid, 'auto-missing', 'not found'));
   vigApplied = { ext, missing: [...missingFields], raw };
   document.getElementById('vigClear').style.display = '';
   // summary
   const found = Object.entries(ext).filter(([, v]) => v.conf === 'found'), inf = Object.entries(ext).filter(([, v]) => v.conf === 'inferred');
-  const disp = (k, v) => { let val = v.value; if (k === 'occlusion') val = ({ica:'ICA',m1:'M1',m2:'M2',m3:'M3',aca:'ACA',pca:'PCA',basilar:'basilar',other:'other',none:'none'})[val] || val; if (k === 'm2dom') val = ({dominant:'dominant',codom:'co-dominant',nondom:'non-dominant',multi:'≥2 branches'})[val] || val; if (k === 'm2pos') val = val === 'dist' ? 'distal' : 'proximal'; return VIG_FIELDS[k].label + ': ' + val; };
+  const disp = (k, v) => { let val = v.value; if (k === 'occlusion') val = ({ica:'ICA',m1:'M1',m2dom:'M2 dominant',m2non:'M2 non-dominant',m3:'M3',aca:'ACA',pca:'PCA',basilar:'basilar',other:'other',none:'none'})[val] || val; return VIG_FIELDS[k].label + ': ' + val; };
   let html = '<div class="vr-head">Filled ' + Object.keys(ext).length + ' of ' + Object.keys(VIG_FIELDS).length + ' fields' + (missingFields.size ? '; ' + missingFields.size + ' still needed' : '') + '</div>';
   html += '<div class="vig-chips">' + found.map(([k, v]) => '<span class="found" title="stated in text">' + disp(k, v) + '</span>').join('') +
     inf.map(([k, v]) => '<span class="inferred" title="' + (v.note || 'inferred') + '">' + disp(k, v) + ' (inferred)</span>').join('') + '</div>';
